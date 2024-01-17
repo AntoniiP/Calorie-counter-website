@@ -1,0 +1,10 @@
+.main-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    background: green;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: var(--shadow);
+}
