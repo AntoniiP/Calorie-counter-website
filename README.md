@@ -1,8 +1,13 @@
-# React + Vite
+# Calorie and protein counter website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This website is meant to be an easy way to set a daily goal for calorie and protein intake. 
+The main feature for this website is the future ability to browse different foods and items from fast food places, to remove the struggle of trying to find online the amount of protein and calories each item on the menu has.
 
-Currently, two official plugins are available:
+Another main reason for this website was the lack of apps that allow you to create your custom recipes.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Built with React + Vite with the help of jQuery and vanilla CSS
+
+TODO:
+- UI/UX
+- Food browser
+- Many features after the main idea is implemented
