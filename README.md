@@ -8,6 +8,6 @@ Another main reason for this website was the lack of apps that allow you to crea
 Built with React + Vite with the help of jQuery and vanilla CSS
 
 TODO:
-- UI/UX
+- JS and better UI
 - Food browser
 - Many features after the main idea is implemented
