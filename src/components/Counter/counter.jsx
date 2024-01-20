@@ -5,12 +5,13 @@ export default function Card({ type, current, goal, name }) {
 	const circleRef = useRef(null)
 	const [circleStyles, setCircleStyles] = useState({})
 
-	const percentage = Math.ceil((current * 100) / goal)
+	let percentage = Math.ceil((current * 100) / goal)
 
 
 
 	useEffect(() => {
 		if (circleRef.current) {
+			if (percentage > 100) percentage = 100;
 			const radius = circleRef.current.r.baseVal.value
 			const circumference = radius * 2 * Math.PI
 			const offset = circumference - (percentage / 100) * circumference
@@ -25,8 +26,9 @@ export default function Card({ type, current, goal, name }) {
 
 	return (
 		<div className='counter main-card'>
+			<h3>Total {name}</h3>
 			<div className='progress-circle'>
-				<svg className='progress-svg' width='250' height='250' viewBox='0 0 250 250'>
+				<svg className='progress-svg' width='auto' height='100%' viewBox='0 0 250 250'>
 					<circle className='circle-bg' cx='125' cy='125' r='110' stroke='#eee' strokeWidth='20' fill='none' />
 					<circle className='circle' cx='125' cy='125' r='110' stroke='url(#gradient)' strokeWidth='20' fill='none' transform='rotate(-180, 125, 125)' style={circleStyles} ref={circleRef} />
 					<defs>
@@ -37,9 +39,12 @@ export default function Card({ type, current, goal, name }) {
 					</defs>
 				</svg>
 				<div className='inside-circle'>
-					{goal} {type}
-					<br />
+					<p>
+						<span class="number-text">{current}</span>{type}
+					</p>
+					<p>
 					{percentage}% of goal
+					</p>
 				</div>
 			</div>
 		</div>

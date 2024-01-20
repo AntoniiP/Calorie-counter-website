@@ -17,8 +17,8 @@ function App() {
 			</div>
 			<div className="counters">
 
-				<Counter type="cal" current={1250} goal={2700} name="Calories" />
-				<Counter type="g" current={100} goal={170} name="Protein" />
+				<Counter type="cal" current={2650} goal={2700} name="Calories" />
+				<Counter type="g" current={132} goal={170} name="Protein" />
 			</div>
 		</div>
 	)
