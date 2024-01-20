@@ -1,0 +1,66 @@
+.vertical-nav {
+	width: 75px;
+	height: 75%;
+	position: fixed;
+	background: #fff;
+	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+	z-index: 100;
+	left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    padding: 40px 0;
+}
+
+.nav-list {
+	list-style-type: none;
+	margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+	display: flex;
+	align-items: center;
+	height: 50px; /* Adjust the height of the nav item to your preference */
+	padding: 10px 0;
+    justify-content: center;
+}
+
+.nav-link {
+	display: flex;
+	align-items: center;
+	height: auto;
+	width: auto;
+	text-decoration: none;
+	color: #333;
+	background: linear-gradient(#4CA46F, #56B27B);
+    border-radius: 50%;
+
+}
+
+.nav-icon {
+	display: block;
+	width: 50px; /* Adjust the size of the icon to your preference */
+	height: 50px; /* Adjust the size of the icon to your preference */
+	margin: 0 auto;
+    background: no-repeat scroll center center;
+    background-origin: content-box;
+}
+
+.home-icon {
+	background-image: url('public/vite.svg');
+}
+
+.search-icon {
+	background-image: url('public/vite.svg');
+}
+
+.nav-separator {
+    margin: 0 15%;
+    height: 4px;
+    width: 75%;
+    background: #E4E4E4;
+}
+
+/* Add more classes for additional icons */
