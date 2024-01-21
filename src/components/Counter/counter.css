@@ -1,61 +1,64 @@
 .counter {
-    width: 50vw;
-    height: 40vh;
-    margin: 20px;
-
+	width: 50vw;
+	height: 40vh;
+	margin: 20px;
 }
-
 
 .progress-circle {
-  position: relative;
-  margin-top: 20px;
-  height: 90%;
+	position: relative;
+	margin-top: 20px;
+	height: 90%;
 }
 h3 {
-  position: absolute;
-  margin-left: 10px;
-  z-index: 100;
+	position: absolute;
+	margin-left: 10px;
+	z-index: 100;
+	font-weight: 400;
 }
 
 .circle-bg {
-  stroke-dasharray: 692; /* Approximate circumference of the circle (2 * Math.PI * r) */
-  stroke-dashoffset: 0;
+	stroke-dasharray: 692; /* Approximate circumference of the circle (2 * Math.PI * r) */
+	stroke-dashoffset: 0;
 }
 
 .circle {
-  stroke-dasharray: 692; /* Approximate circumference of the circle (2 * Math.PI * r) */
-  stroke-dashoffset: 692; /* Start with a full offset (circle not shown) */
-  transition: stroke-dashoffset 0.6s ease 0s;
-  transform-origin: center;
-  transform: rotate(90deg); 
+	stroke-dasharray: 692; /* Approximate circumference of the circle (2 * Math.PI * r) */
+	stroke-dashoffset: 692; /* Start with a full offset (circle not shown) */
+	transition: stroke-dashoffset 0.6s ease 0s;
+	transform-origin: center;
+	transform: rotate(90deg);
 }
 
-
-
 .inside-circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  display: flex;
-  flex-direction: column;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10;
+	display: flex;
+	flex-direction: column;
 
-  text-align: center;
-  border-radius: 50%;
-  line-height: 0;
-
+	text-align: center;
+	border-radius: 50%;
+	line-height: 0;
 }
 
 .inside-circle p {
-  font-size: 24px;
-  color: #2d7441;
-  text-wrap: nowrap;
-  
+	font-size: 24px;
+  font-weight: 200;
+	color: #2d7441;
+	text-wrap: nowrap;
 }
 
 .number-text {
-  font-weight: 600;
-  color: #4CA46F;
-  font-size: 40px;
+	font-weight: 600;
+	color: #4ca46f;
+	font-size: 40px;
+}
+
+.add {
+  position: absolute;
+  bottom: -10px;
+  margin-left: 10px;
+  cursor: pointer;
 }

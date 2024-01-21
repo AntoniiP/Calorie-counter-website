@@ -10,6 +10,10 @@ export default function Card({ name, content, sortType, button }) {
 				<div className="content"></div>
 				<div className="content"></div>
 				<div className="content"></div>
+				<div className="content"></div>
+				<div className="content"></div>
+				<div className="content"></div>
+				<div className="content"></div>
 			</div>
 		</div>
 	)

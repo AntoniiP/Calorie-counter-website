@@ -40,12 +40,14 @@ export default function Card({ type, current, goal, name }) {
 				</svg>
 				<div className='inside-circle'>
 					<p>
-						<span class="number-text">{current}</span>{type}
+						<span className='number-text'>{current}</span>
+						{type}
 					</p>
-					<p>
-					{percentage}% of goal
-					</p>
+					<p>{percentage}% of goal</p>
 				</div>
+				<h4 className='add'>
+					Add {name}
+				</h4>
 			</div>
 		</div>
 	)
