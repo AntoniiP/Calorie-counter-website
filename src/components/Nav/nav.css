@@ -1,30 +1,39 @@
 .vertical-nav {
-	width: 75px;
+	width: 100px;
 	height: 75%;
 	position: fixed;
 	background: #fff;
 	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 	z-index: 100;
 	left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    border-top-right-radius: 25px;
-    border-bottom-right-radius: 25px;
-    padding: 40px 0;
+	top: 50%;
+	transform: translateY(-50%);
+	border-top-right-radius: 25px;
+	border-bottom-right-radius: 25px;
+	padding: 40px 0;
 }
+
 
 .nav-list {
 	list-style-type: none;
-	margin: 0;
-    padding: 0;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin: 0 auto;
+	padding: 0;
+}
+
+.nav-div {
+	display: flex;
+	flex-direction: column;
 }
 
 .nav-item {
 	display: flex;
 	align-items: center;
-	height: 50px; /* Adjust the height of the nav item to your preference */
 	padding: 10px 0;
-    justify-content: center;
+	justify-content: center;
 }
 
 .nav-link {
@@ -34,33 +43,65 @@
 	width: auto;
 	text-decoration: none;
 	color: #333;
-	background: linear-gradient(#4CA46F, #56B27B);
-    border-radius: 50%;
-
+	background: linear-gradient(#4ca46f, #56b27b);
+	border-radius: 50%;
 }
 
 .nav-icon {
 	display: block;
-	width: 50px; /* Adjust the size of the icon to your preference */
-	height: 50px; /* Adjust the size of the icon to your preference */
+	width: 75px; 
+	height: 75px;
 	margin: 0 auto;
-    background: no-repeat scroll center center;
-    background-origin: content-box;
+	background: no-repeat scroll center center;
+	background-origin: content-box;
+}
+
+@media only screen and (max-height: 800px) {
+	.nav-icon {
+		height: 50px;
+		width: 50px;
+	}		
+	.vertical-nav {
+		width: 75px;
+	}
+	.nav-item {
+		padding: 0;
+	}
 }
 
 .home-icon {
-	background-image: url('public/vite.svg');
+	background-image: url('Home.svg');
 }
 
-.search-icon {
-	background-image: url('public/vite.svg');
+.meals-icon {
+	background-image: url('Meals.svg');
+}
+
+.notes-icon {
+	background-image: url('Notes.svg');
+}
+
+.time-icon {
+	background-image: url('Time.svg');
+}
+
+.settings-icon {
+	background-image: url('Settings.svg');
+}
+
+.help-icon {
+	background-image: url('Help.svg');
+}
+
+.logout-icon {
+	background-image: url('Logout.svg');
 }
 
 .nav-separator {
-    margin: 0 15%;
-    height: 4px;
-    width: 75%;
-    background: #E4E4E4;
+	margin: 0 15%;
+	height: 4px;
+	width: 75%;
+	background: #e4e4e4;
 }
 
 /* Add more classes for additional icons */
