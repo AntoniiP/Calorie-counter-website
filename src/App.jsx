@@ -11,9 +11,9 @@ function App() {
 			<Nav />
 			<Search />
 			<div className="cards">
-				<Card />
-				<Card />
-				<Card />
+				<Card name="Meal log" />
+				<Card name="My meals" button/>
+				<Card name="My food" button/>
 			</div>
 			<div className="counters">
 
