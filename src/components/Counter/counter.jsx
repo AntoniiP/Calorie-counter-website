@@ -23,13 +23,12 @@ export default function Card({ type, current, goal, name }) {
 		}
 	}, [ percentage ])
 	
-
 	return (
 		<div className='counter main-card'>
 			<h3>Total {name}</h3>
 			<div className='progress-circle'>
-				<svg className='progress-svg' width='auto' height='100%' viewBox='0 0 250 250'>
-					<circle className='circle-bg' cx='125' cy='125' r='110' stroke='#eee' strokeWidth='20' fill='none' />
+				<svg className='progress-svg' width='auto' height='auto' viewBox='0 0 250 250'>
+					<circle className='circle-bg' cx='125' cy='125' r='110'  strokeWidth='20' fill='none' />
 					<circle className='circle' cx='125' cy='125' r='110' stroke='url(#gradient)' strokeWidth='20' fill='none' transform='rotate(-180, 125, 125)' style={circleStyles} ref={circleRef} />
 					<defs>
 						<linearGradient id='gradient' x1='0%' y1='0%' x2='0%' y2='100%'>

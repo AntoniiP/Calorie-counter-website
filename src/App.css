@@ -11,6 +11,6 @@
 }
 
 .main-card {
-    background: #FFFFFF;
+    background: var(--white-bg-color);
     box-shadow: var(--shadow);
 }

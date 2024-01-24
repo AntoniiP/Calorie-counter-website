@@ -2,7 +2,7 @@
 	width: 100px;
 	height: 75%;
 	position: fixed;
-	background: #fff;
+	background: var(--white-bg-color);
 	box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 	z-index: 100;
 	left: 0;
