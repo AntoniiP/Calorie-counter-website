@@ -4,7 +4,7 @@ import Counter from './components/Counter/counter'
 import Nav from './components/Nav/nav'
 import Search from './components/Search/search'
 import Card from './components/Card/card'
-import SetCount from './components/setcount/setCount'
+import Login from './components/login/login'
 
 function App() {
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem('dailyGoal')) || [])
@@ -31,7 +31,7 @@ function App() {
 					</div>
 				</div>
 			) : (
-				<SetCount onSetGoal={updateDailyGoal} />
+				<Login onSetGoal={updateDailyGoal} />
 			)}
 		</>
 	)
