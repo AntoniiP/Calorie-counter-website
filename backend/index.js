@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express'),
 	mongoose = require('mongoose'),
 	app = express(),
@@ -5,7 +7,7 @@ const express = require('express'),
     db = require('./models/user'),
     { HashPassword } = require('./functions')
 
-mongoose.connect('mongodb://127.0.0.1:27017/calcounter').then(() => console.log('Connected to DB.'), console.log('Error connecting to DB.'))
+mongoose.connect(process.env.db).then(() => console.log('Connected to DB.'), console.log('Error connecting to DB.'))
 
 app.get('/register', async (req, res) => {
 	const {username, calorieCount, proteinCount, password} = req.body
@@ -15,10 +17,10 @@ app.get('/register', async (req, res) => {
     await db.create({
 		username, // Character limit needed in the future
 		password: HashPassword(password),
-		totalCalories: Number,
-		totalProtein: Number,
-		currentCalories: Number,
-		currentProtein: Number
+		totalCalories: calorieCount,
+		totalProtein: proteinCount,
+		currentCalories: 0,
+		currentProtein: 0
 	})
 
 })
