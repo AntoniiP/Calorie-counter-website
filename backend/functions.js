@@ -1,30 +1,18 @@
 const bcrypt = require('bcrypt')
 
 /**
- * Generates a salt using bcrypt.
- * @param {Number} saltRounds The cost factor for generating the salt.
- * @returns {Promise<String>} The generated salt.
- */
-async function generateSalt(saltRounds = 10) {
-	try {
-		return await bcrypt.genSalt(saltRounds)
-	} catch (error) {
-		console.log(error)
-	}
-}
-
-/**
- * Hashes a password using a given salt.
+ * Hashes a password using bcrypt.
  * @param {String} password The password to hash.
- * @param {String} salt The salt to use for hashing.
+ * @param {Number} saltRounds The cost factor for hashing.
  * @returns {Promise<String>} The hashed password.
  */
-async function hashPassword(password, salt) {
+async function hashPassword(password, saltRounds = 10) {
 	try {
-		return await bcrypt.hash(password, salt)
+		return await bcrypt.hash(password, saltRounds)
 	} catch (error) {
-		console.log(error)
+		console.error(error)
+		throw error // It's better to throw the error to be handled by the caller
 	}
 }
 
-module.exports = {generateSalt, hashPassword}
+module.exports = {hashPassword}

@@ -2,45 +2,56 @@ require('dotenv').config()
 
 const express = require('express'),
 	mongoose = require('mongoose'),
-	app = express(),
-    PORT = 8706,
-    db = require('./models/user'),
-	{ HashPassword } = require('./functions'),
 	bodyparser = require('body-parser'),
-	cors = require('cors')
+	bcrypt = require('bcrypt')
+;(app = express()), (PORT = 8706), (db = require('./models/user')), ({generateSalt, hashPassword} = require('./functions')), (cors = require('cors'))
 
+app.use(bodyparser.json(), bodyparser.urlencoded({extended: true}), cors())
 
-app.use(bodyparser.json(), bodyparser.urlencoded({ extended: true }), cors())
-
-mongoose.connect(process.env.db).then(() => console.log('Connected to DB.'), (er) => console.log('Error connecting to DB.', er))
+mongoose.connect(process.env.db).then(
+	() => console.log('Connected to DB.'),
+	(er) => console.log('Error connecting to DB.', er)
+)
 
 app.post('/register', async (req, res) => {
-	const {username, calorieCount, proteinCount, password} = req.body
-	if (!username || !calorieCount || !proteinCount || !password) return res.status(400)
-	if (await db.findOne({username})) return res.send(409) // "The request could not be completed due to a conflict with the current state of the resource. This code is only allowed in situations where it is expected that the user might be able to resolve the conflict and resubmit the request. " - Stackoverflow 3825990
+	const {username, totalCalories, totalProtein, password} = req.body
+	if (!username || !totalCalories || !totalProtein || !password) return res.status(400).send({ error: 'All fields are required.'})
 
-    await db.create({
+	if (await db.findOne({username})) return res.status(409).send({ error: 'Account already exists.'}) // "The request could not be completed due to a conflict with the current state of the resource. This code is only allowed in situations where it is expected that the user might be able to resolve the conflict and resubmit the request. " - Stackoverflow 3825990
+	
+	const hash = await hashPassword(password)
+
+	await db.create({
 		username, // Character limit needed in the future
-		password: HashPassword(password),
-		totalCalories: calorieCount,
-		totalProtein: proteinCount,
+		password: hash,
+		totalCalories,
+		totalProtein,
 		currentCalories: 0,
 		currentProtein: 0
 	})
 
+	return res.status(200).send({ totalCalories, totalProtein })
 })
 
-
 app.post('/login', async (req, res) => {
-	const { username, password } = req.body
-	if (!username || !password) return res.status(400)
-	console.log(req.body, {username, password: HashPassword(password)})
-	const user = await db.findOne({ username, password: HashPassword(password) })
-	if (!user) return res.status(404).send('No user found.')
-	const {totalCalories, totalProtein, currentCalories, currentProtein, mealLog, meals, food} = user
-	return res.send({ totalCalories, totalProtein, currentCalories, currentProtein, mealLog, meals, food })
+	const {username, password} = req.body
+	if (!username || !password) return res.status(400).send({ error: 'Username and password are required.' })
+	
+	try {
+		const user = await db.findOne({username})
+		if (!user) return res.status(404).send({error: 'No user found.'})
+		
+		const isMatch = await bcrypt.compare(password, user.password)
+		
 
+		if (!isMatch) return res.status(401).send({error: 'Invalid credentials.'})
 
+		const {totalCalories, totalProtein, currentCalories, currentProtein, mealLog, meals, food} = user
+		return res.send({totalCalories, totalProtein, currentCalories, currentProtein, mealLog, meals, food})
+	} catch (er) {
+		console.error(er)
+		return res.status(500).send({error: 'An error occurred while processing your request.'})
+	}
 })
 
 app.get('/meallog', (req, res) => {})

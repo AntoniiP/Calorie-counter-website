@@ -9,29 +9,54 @@ export default function SetCount({onSetGoal}) {
 		if (type == 'login') {
 			const username = $('#username').val(),
 				password = $('#password').val()
-			console.log(username, password)
 			if (!username || !password) return setError(true)
 			try {
 				const req = await fetch('http://localhost:8706/login', {
 					method: 'POST',
 					headers: {'Content-Type': 'application/json'},
-					body: JSON.stringify({ username, password })
+					body: JSON.stringify({username, password})
 				})
 				const res = await req.json()
-				console.log(res)
+				if (res.error) throw res.error
+
+				const { totalCalories, totalProtein } = res
+				localStorage.setItem('dailyGoal', `[${totalCalories}, ${totalProtein}]`)
+				onSetGoal([ totalCalories, totalProtein ])
+					
 			} catch (er) {
-				setError('Incorrect username or password.')
+				setError(er)
 			}
 		} else {
-
-			const calories = $('#cal').val()
-			const protein = $('#prote').val()
+			const username = $('#username').val(),
+				password = $('#password').val(),
+			 	calories = $('#cal').val(),
+				protein = $('#prote').val()
+			console.count()
 			if (calories < 10 || protein < 10) return setError(true)
-			
-			localStorage.setItem('dailyGoal', `[${calories}, ${protein}]`)
-			onSetGoal([calories, protein])
-		}
+			if (!username || !password) return setError(true)
+			console.count()
 
+
+			try {
+				console.count()
+
+				const req = await fetch('http://localhost:8706/register', {
+					method: 'POST',
+					headers: {'Content-Type': 'application/json'},
+					body: JSON.stringify({username, password, totalCalories: calories, totalProtein: protein})
+				})
+				const res = await req.json()
+				if (res.error) throw res.error;
+				const { totalCalories, totalProtein } = res
+				localStorage.setItem('dailyGoal', `[${totalCalories}, ${totalProtein}]`)
+				onSetGoal([totalCalories, totalProtein])
+			} catch (er) {
+				setError(er)
+			}
+
+
+			
+		}
 	}
 
 	const handleKeyDown = (event) => {
@@ -63,8 +88,9 @@ export default function SetCount({onSetGoal}) {
 
 					<input type='number' min='10' name='Calories' placeholder='Daily calories goal (cal)' id='cal' onKeyDown={handleKeyDown} />
 					<input type='number' min='1' name='Protein' placeholder='Daily protein goal (g)' id='prote' onKeyDown={handleKeyDown} />
+
 					{error && <div className='error'>{typeof error == 'string' ? error : 'Please fill out all required fields '}</div>}
-					<button className='login-button' onClick={() => handleSubmit('login')}>
+					<button className='login-button' onClick={() => handleSubmit('register')}>
 						Register
 					</button>
 					<p>
