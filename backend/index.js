@@ -16,13 +16,14 @@ mongoose.connect(process.env.db).then(
 app.post('/register', async (req, res) => {
 	const {username, totalCalories, totalProtein, password} = req.body
 	if (!username || !totalCalories || !totalProtein || !password) return res.status(400).send({ error: 'All fields are required.'})
-
+	if (username.length < 5 || username.length > 20) return res.status(400).send({ error: 'Username must be between 5 and 20 characters.' })
+	if (password.length < 5) return res.status(400).send({ error: 'Password must be between minimum 5 characters.' })
 	if (await db.findOne({username})) return res.status(409).send({ error: 'Account already exists.'}) // "The request could not be completed due to a conflict with the current state of the resource. This code is only allowed in situations where it is expected that the user might be able to resolve the conflict and resubmit the request. " - Stackoverflow 3825990
 	
 	const hash = await hashPassword(password)
 
 	await db.create({
-		username, // Character limit needed in the future
+		username, 
 		password: hash,
 		totalCalories,
 		totalProtein,

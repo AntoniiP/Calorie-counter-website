@@ -83,7 +83,10 @@ export default function Nav() {
 
 				<li className='nav-item'>
 					<a href='#' className='nav-link'>
-						<i className='nav-icon logout-icon'></i>
+						<i className='nav-icon logout-icon' onClick={ () => {
+							localStorage.clear()
+							location.reload()
+						} }></i>
 					</a>
 				</li>
 			</ul>

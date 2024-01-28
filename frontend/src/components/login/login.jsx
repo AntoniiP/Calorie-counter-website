@@ -31,15 +31,10 @@ export default function SetCount({onSetGoal}) {
 				password = $('#password').val(),
 			 	calories = $('#cal').val(),
 				protein = $('#prote').val()
-			console.count()
 			if (calories < 10 || protein < 10) return setError(true)
 			if (!username || !password) return setError(true)
-			console.count()
-
 
 			try {
-				console.count()
-
 				const req = await fetch('http://localhost:8706/register', {
 					method: 'POST',
 					headers: {'Content-Type': 'application/json'},
