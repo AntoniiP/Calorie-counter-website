@@ -19,17 +19,20 @@ export default function SetCount({onSetGoal}) {
 				const res = await req.json()
 				if (res.error) throw res.error
 
-				const { totalCalories, totalProtein } = res
+				const {totalCalories, totalProtein, currentCalories, currentProtein} = res
 				localStorage.setItem('dailyGoal', `[${totalCalories}, ${totalProtein}]`)
-				onSetGoal([ totalCalories, totalProtein ])
-					
+				localStorage.setItem('mode', 'dark')
+
+				localStorage.setItem('current', `[${currentCalories}, ${currentProtein}]`)
+
+				onSetGoal([totalCalories, totalProtein])
 			} catch (er) {
 				setError(er)
 			}
 		} else {
 			const username = $('#username').val(),
 				password = $('#password').val(),
-			 	calories = $('#cal').val(),
+				calories = $('#cal').val(),
 				protein = $('#prote').val()
 			if (calories < 10 || protein < 10) return setError(true)
 			if (!username || !password) return setError(true)
@@ -41,16 +44,15 @@ export default function SetCount({onSetGoal}) {
 					body: JSON.stringify({username, password, totalCalories: calories, totalProtein: protein})
 				})
 				const res = await req.json()
-				if (res.error) throw res.error;
-				const { totalCalories, totalProtein } = res
+				if (res.error) throw res.error
+				const {totalCalories, totalProtein} = res
 				localStorage.setItem('dailyGoal', `[${totalCalories}, ${totalProtein}]`)
+				localStorage.setItem('mode', 'dark')
+				localStorage.setItem('current', '[0,0]')
 				onSetGoal([totalCalories, totalProtein])
 			} catch (er) {
 				setError(er)
 			}
-
-
-			
 		}
 	}
 
