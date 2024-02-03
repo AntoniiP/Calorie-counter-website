@@ -9,7 +9,7 @@ import Login from './components/login/login'
 function App() {
 	const [count, setCount] = useState(JSON.parse(localStorage.getItem('dailyGoal')) || [])
 
-	const [user, setUser] = useState([])
+	const [user, setUser] = useState({})
 
 	useEffect(() => {
 		updateDailyGoal()
@@ -26,10 +26,9 @@ function App() {
 		setUser(allData)
 		if (newGoal) setCount(newGoal)
 	}
-
 	return (
 		<>
-			{count.length ? (
+			{user.dailyGoal ? (
 				<div className='main-wrapper'>
 					<Nav />
 					<Search />

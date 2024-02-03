@@ -1,13 +1,12 @@
 import { useEffect, useState, useRef } from 'react'
+import Add from '../Add/add'
 import './counter.css'
 
 export default function Card({ type, current, goal, name }) {
 	const circleRef = useRef(null)
 	const [circleStyles, setCircleStyles] = useState({})
-
+	const [ isDivVisible, setIsDivVisible ] = useState(false);
 	let percentage = Math.ceil((current * 100) / goal)
-
-
 
 	useEffect(() => {
 		if (circleRef.current) {
@@ -22,11 +21,14 @@ export default function Card({ type, current, goal, name }) {
 			})
 		}
 	}, [ percentage ])
-	function setDiv() {
-		
+
+	function toggleDiv() {
+		setIsDivVisible(!isDivVisible)
 	}
+
 	return (
 		<div className='counter main-card'>
+			{isDivVisible && <Add />}
 			<h3>Total {name}</h3>
 			<div className='progress-circle'>
 				<svg className='progress-svg' width='auto' height='auto' viewBox='0 0 250 250'>
@@ -46,7 +48,7 @@ export default function Card({ type, current, goal, name }) {
 					</p>
 					<p>{percentage}% of goal</p>
 				</div>
-				<h4 className='add' onClick={setDiv}>
+				<h4 className='add' onClick={toggleDiv}>
 					Add {name}
 				</h4>
 			</div>

@@ -47,7 +47,7 @@ h3 {
   font-weight: 200;
 	color: #2d7441;
 	text-wrap: nowrap;
-	z-index: 100;
+	z-index: 20;
 }
 
 .number-text {
