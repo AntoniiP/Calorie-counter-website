@@ -11,10 +11,12 @@ function App() {
 
 	const [user, setUser] = useState([])
 
-
+	useEffect(() => {
+		updateDailyGoal()
+	}, [])
 
 	const updateDailyGoal = (newGoal) => {
-		localStorage.setItem('dailyGoal', JSON.stringify(newGoal))
+		if (newGoal) localStorage.setItem('dailyGoal', JSON.stringify(newGoal))
 		const allData = {}
 		for (let i = 0; i < localStorage.length; i++) {
 			const key = localStorage.key(i)
@@ -22,7 +24,7 @@ function App() {
 			allData[key] = item.match(/\[|\(/) ? JSON.parse(item) : item
 		}
 		setUser(allData)
-		setCount(newGoal)
+		if (newGoal) setCount(newGoal)
 	}
 
 	return (

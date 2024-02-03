@@ -61,4 +61,5 @@ h3 {
   bottom: -10px;
   margin-left: 10px;
   cursor: pointer;
+  user-select: none;
 }

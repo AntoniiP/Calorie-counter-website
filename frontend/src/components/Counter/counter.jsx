@@ -22,7 +22,9 @@ export default function Card({ type, current, goal, name }) {
 			})
 		}
 	}, [ percentage ])
-	
+	function setDiv() {
+		
+	}
 	return (
 		<div className='counter main-card'>
 			<h3>Total {name}</h3>
@@ -44,7 +46,7 @@ export default function Card({ type, current, goal, name }) {
 					</p>
 					<p>{percentage}% of goal</p>
 				</div>
-				<h4 className='add'>
+				<h4 className='add' onClick={setDiv}>
 					Add {name}
 				</h4>
 			</div>
