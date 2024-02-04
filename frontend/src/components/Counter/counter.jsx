@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import Add from '../Add/add'
 import './counter.css'
 
-export default function Card({ type, current, goal, name }) {
+export default function Card({ type, current, goal, name, onSetCurrent }) {
 	const circleRef = useRef(null)
 	const [circleStyles, setCircleStyles] = useState({})
 	const [ isDivVisible, setIsDivVisible ] = useState(false);
@@ -28,7 +28,7 @@ export default function Card({ type, current, goal, name }) {
 
 	return (
 		<div className='counter main-card'>
-			{isDivVisible && <Add />}
+			{ isDivVisible && <Add toggleDiv={ toggleDiv } />}
 			<h3>Total {name}</h3>
 			<div className='progress-circle'>
 				<svg className='progress-svg' width='auto' height='auto' viewBox='0 0 250 250'>

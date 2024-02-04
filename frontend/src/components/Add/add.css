@@ -76,7 +76,7 @@
 	width: 100px;
 
 	color: #fff;
-	font-size: 10px;
+	font-size: 14px;
 	text-align: center;
 	line-height: 1;
 	padding: 0 5px;
@@ -102,4 +102,17 @@
 #button-1 .knobs:before,
 #button-1 .layer {
 	transition: 0.3s ease all;
+}
+
+.custom-intake {
+	margin-top: 20px;
+}
+.custom-intake input {
+	width: 100%;
+	margin: 0;
+}
+
+.custom-intake button {
+	font-size: 20px;
+	border-radius: 20px;
 }

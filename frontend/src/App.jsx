@@ -5,6 +5,7 @@ import Nav from './components/Nav/nav'
 import Search from './components/Search/search'
 import Card from './components/Card/card'
 import Login from './components/login/login'
+import AppContext from './context/AppContext'
 
 function App() {
 	const [count, setCount] = useState(JSON.parse(localStorage.getItem('dailyGoal')) || [])
@@ -15,7 +16,7 @@ function App() {
 		updateDailyGoal()
 	}, [])
 
-	const updateDailyGoal = (newGoal) => {
+	function updateDailyGoal(newGoal) {
 		if (newGoal) localStorage.setItem('dailyGoal', JSON.stringify(newGoal))
 		const allData = {}
 		for (let i = 0; i < localStorage.length; i++) {
@@ -26,8 +27,17 @@ function App() {
 		setUser(allData)
 		if (newGoal) setCount(newGoal)
 	}
+	function updateCount() {
+		const allData = {}
+		for (let i = 0; i < localStorage.length; i++) {
+			const key = localStorage.key(i)
+			const item = localStorage.getItem(key)
+			allData[key] = item.match(/\[|\(/) ? JSON.parse(item) : item
+		}
+		setUser(allData)
+	}
 	return (
-		<>
+		<AppContext.Provider value={{updateCount}}>
 			{user.dailyGoal ? (
 				<div className='main-wrapper'>
 					<Nav />
@@ -45,7 +55,7 @@ function App() {
 			) : (
 				<Login onSetGoal={updateDailyGoal} />
 			)}
-		</>
+		</AppContext.Provider>
 	)
 }
 
