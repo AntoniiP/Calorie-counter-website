@@ -26,7 +26,9 @@ export default function Add({ toggleDiv }) {
 		updateCount(current)
 	}
 
-    return (
+	return (
+		<div className="add-wrapper">
+
 		<div className='add-cal'>
 			<h4>Add your custom intake or select an item from a specific brand.</h4>
 
@@ -49,6 +51,7 @@ export default function Add({ toggleDiv }) {
 			) : (
 				<div className='brands'>{/* Add brands */}</div>
 			)}
+		</div>
 		</div>
 	)
 }

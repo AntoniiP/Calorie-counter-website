@@ -9,10 +9,10 @@
 	margin-top: 20px;
 	height: 90%;
 }
-h3 {
+.counter h3 {
 	position: absolute;
 	margin-left: 10px;
-	z-index: 100;
+	z-index: 80;
 	font-weight: 400;
 }
 
