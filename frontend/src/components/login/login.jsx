@@ -1,34 +1,28 @@
 import {useState} from 'react'
 import './login.css'
+import useFetch from '../../hooks/useFetch'
 
 export default function SetCount({onSetGoal}) {
 	const [error, setError] = useState(false)
 	const [page, setPage] = useState('login')
+	const {postData, err} = useFetch()
 
 	async function handleSubmit(type) {
 		if (type == 'login') {
 			const username = $('#username').val(),
 				password = $('#password').val()
 			if (!username || !password) return setError(true)
-			try {
-				const req = await fetch('http://localhost:8706/login', {
-					method: 'POST',
-					headers: {'Content-Type': 'application/json'},
-					body: JSON.stringify({username, password})
-				})
-				const res = await req.json()
-				if (res.error) throw res.error
 
+			const res = await postData('http://localhost:8706/login', {username, password})
+			if (!res.error) {
 				const {totalCalories, totalProtein, currentCalories, currentProtein} = res
 				localStorage.setItem('dailyGoal', `[${totalCalories}, ${totalProtein}]`)
 				localStorage.setItem('mode', 'dark')
-
 				localStorage.setItem('current', `[${currentCalories}, ${currentProtein}]`)
 
 				onSetGoal([totalCalories, totalProtein])
-			} catch (er) {
-				setError(er)
-			}
+			} else setError(res.error)
+
 		} else {
 			const username = $('#username').val(),
 				password = $('#password').val(),
