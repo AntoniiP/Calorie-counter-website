@@ -22,7 +22,6 @@ export default function SetCount({onSetGoal}) {
 
 				onSetGoal([totalCalories, totalProtein])
 			} else setError(res.error)
-
 		} else {
 			const username = $('#username').val(),
 				password = $('#password').val(),
@@ -30,23 +29,14 @@ export default function SetCount({onSetGoal}) {
 				protein = $('#prote').val()
 			if (calories < 10 || protein < 10) return setError(true)
 			if (!username || !password) return setError(true)
-
-			try {
-				const req = await fetch('http://localhost:8706/register', {
-					method: 'POST',
-					headers: {'Content-Type': 'application/json'},
-					body: JSON.stringify({username, password, totalCalories: calories, totalProtein: protein})
-				})
-				const res = await req.json()
-				if (res.error) throw res.error
+			const res = await postData('http://localhost:8706/register', {username, password, totalCalories: calories, totalProtein: protein})
+			if (!res.error) {
 				const {totalCalories, totalProtein} = res
 				localStorage.setItem('dailyGoal', `[${totalCalories}, ${totalProtein}]`)
 				localStorage.setItem('mode', 'dark')
 				localStorage.setItem('current', '[0,0]')
 				onSetGoal([totalCalories, totalProtein])
-			} catch (er) {
-				setError(er)
-			}
+			} else setError(er)
 		}
 	}
 
