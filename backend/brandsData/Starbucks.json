@@ -1,0 +1,122 @@
+{
+    "icon": "",
+	"Hot Beverages": {
+		"Caffè Latte": {
+			"Short": {
+				"Nonfat Milk": {
+					"calories": 70,
+					"protein": 6
+				},
+				"2% Milk": {
+					"calories": 100,
+					"protein": 6
+				},
+				"Soymilk": {
+					"calories": 70,
+					"protein": 5
+				}
+			},
+			"Tall": {
+				"Nonfat Milk": {
+					"calories": 100,
+					"protein": 10
+				},
+				"2% Milk": {
+					"calories": 150,
+					"protein": 10
+				},
+				"Soymilk": {
+					"calories": 110,
+					"protein": 8
+				}
+			},
+			"Grande": {
+				"Nonfat Milk": {
+					"calories": 130,
+					"protein": 13
+				},
+				"2% Milk": {
+					"calories": 190,
+					"protein": 12
+				},
+				"Soymilk": {
+					"calories": 150,
+					"protein": 10
+				}
+			},
+			"Venti": {
+				"Nonfat Milk": {
+					"calories": 170,
+					"protein": 16
+				},
+				"2% Milk": {
+					"calories": 240,
+					"protein": 16
+				},
+				"Soymilk": {
+					"calories": 190,
+					"protein": 13
+				}
+			}
+		},
+
+		"Caffè Mocha (Without Whipped Cream)": {
+			"Short": {
+				"Nonfat Milk": {
+					"calories": 110,
+					"protein": 7
+				},
+				"2% Milk": {
+					"calories": 130,
+					"protein": 6
+				},
+				"Soymilk": {
+					"calories": 110,
+					"protein": 6
+				}
+			},
+			"Tall": {
+				"Nonfat Milk": {
+					"calories": 170,
+					"protein": 10
+				},
+				"2% Milk": {
+					"calories": 200,
+					"protein": 10
+				},
+				"Soymilk": {
+					"calories": 180,
+					"protein": 9
+				}
+			},
+			"Grande": {
+				"Nonfat Milk": {
+					"calories": 220,
+					"protein": 13
+				},
+				"2% Milk": {
+					"calories": 260,
+					"protein": 13
+				},
+				"Soymilk": {
+					"calories": 230,
+					"protein": 11
+				}
+			},
+			"Venti": {
+				"Nonfat Milk": {
+					"calories": 280,
+					"protein": 17
+				},
+				"2% Milk": {
+					"calories": 340,
+					"protein": 17
+				},
+				"Soymilk": {
+					"calories": 290,
+					"protein": 14
+				}
+			}
+		}
+	}
+}
