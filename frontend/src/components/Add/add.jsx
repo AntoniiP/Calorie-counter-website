@@ -1,13 +1,26 @@
 import './add.css'
 import AppContext from '../../context/AppContext'
 import { useState, useContext } from 'react'
+import useFetch from '../../hooks/useFetch'
 
 export default function Add({ toggleDiv }) {
 	const [ isActive, setActive ] = useState(true)
-	const {updateCount} = useContext(AppContext)
+	const [ isRequestMade, setIsRequestMade ] = useState(false)
+	const [ brandsData, setBrandsData ] = useState([])
 	
-    function toggleSwitch() {
-        return setActive(!isActive)
+	const {updateCount} = useContext(AppContext)
+	const {_, getData} = useFetch()
+	
+	async function toggleSwitch() {
+		
+		if (!isRequestMade) {
+			const res = await getData('http://localhost:8706/brands')
+			if (!res.error) {
+				setBrandsData(res)
+				setIsRequestMade(true)
+			}
+		}
+        setActive(!isActive)
 	}
 	
 	function handleKeyDown(event) {
@@ -56,7 +69,10 @@ export default function Add({ toggleDiv }) {
 						</button>
 					</div>
 				) : (
-					<div className='brands'>{/* Add brands */}</div>
+						<div className='brands'>
+							{console.log(brandsData)}
+							{ brandsData.map((x) => <img className={"brand-icon " + x.Name} src={x.icon} alt=""></img>) }
+						</div>
 				)}
 			</div>
 		</div>

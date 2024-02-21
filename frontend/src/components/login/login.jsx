@@ -5,7 +5,7 @@ import useFetch from '../../hooks/useFetch'
 export default function SetCount({onSetGoal}) {
 	const [error, setError] = useState(false)
 	const [page, setPage] = useState('login')
-	const {postData, err} = useFetch()
+	const {postData} = useFetch()
 
 	async function handleSubmit(type) {
 		if (type == 'login') {
