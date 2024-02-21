@@ -2,6 +2,7 @@ import './add.css'
 import AppContext from '../../context/AppContext'
 import { useState, useContext } from 'react'
 import useFetch from '../../hooks/useFetch'
+import Brand from '../Brand/brand'
 
 export default function Add({ toggleDiv }) {
 	const [ isActive, setActive ] = useState(true)
@@ -70,8 +71,7 @@ export default function Add({ toggleDiv }) {
 					</div>
 				) : (
 						<div className='brands'>
-							{console.log(brandsData)}
-							{ brandsData.map((x) => <img className={"brand-icon " + x.Name} src={x.icon} alt=""></img>) }
+							{ brandsData.map((x) =><Brand name={x.Name} icon={x.icon}></Brand>) }
 						</div>
 				)}
 			</div>

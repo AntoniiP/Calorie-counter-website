@@ -135,15 +135,3 @@
 	top: 30px;
 	cursor: pointer;
 }
-.brands {
-	display: flex;
-	flex-direction: column;
-	margin-top: 20px;
-	align-items: center;
-}
-.brand-icon {
-	cursor: pointer;
-	height: 80px;
-	width: 80px;
-	
-}
