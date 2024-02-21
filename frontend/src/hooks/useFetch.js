@@ -20,8 +20,19 @@ const useFetch = () => {
 			return null
 		}
 	}
+	const getData = async (url) => {
+		try {
+			const response = await fetch(url)
+			const result = await response.json()
+			if (!response.ok || result.error) setError(result.error || 'An error occurred')
+			return result
+		} catch (e) {
+			setError('Network error')
+			return null
+		} 
+	}
 
-	return {postData, error}
+	return {postData, getData, error}
 }
 
 export default useFetch
