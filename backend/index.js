@@ -65,18 +65,13 @@ app.get('/brands', (req, res) => {
 	const names = files.map((a) => a.split('.')[0])
 	const icons  = files.map(x => require('./brandsData/' + x)).map(x => x.icon)
 	
-	const brandIconsObject = names.reduce((obj, brand, index) => {
-		obj[brand] = {icon: icons[index]}
-		return obj
-	}, {}) 
-	// Returns an object in the form of
-	// 	{
-	//		"Name": {
-	// 			icon: "iconURL"
-	// 		}
-	// 	}
+	const brandIconsArray = names.map((brand, index) => {
+		return {Name: brand, icon: icons[index]}
+	})
+	// Returns an array in the form of
+	// 	[ {Name: "", icon: ""}, ... ]
 
-	res.send(brandIconsObject)
+	res.send(brandIconsArray)
 })
 
 app.get('/meallog', (req, res) => {})
