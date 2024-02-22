@@ -15,10 +15,11 @@ export default function SetCount({onSetGoal}) {
 
 			const res = await postData('http://localhost:8706/login', {username, password})
 			if (!res.error) {
-				const {totalCalories, totalProtein, currentCalories, currentProtein} = res
+				const {totalCalories, totalProtein, currentCalories, currentProtein, token} = res
 				localStorage.setItem('dailyGoal', `[${totalCalories}, ${totalProtein}]`)
 				localStorage.setItem('mode', 'dark')
 				localStorage.setItem('current', `[${currentCalories}, ${currentProtein}]`)
+				localStorage.setItem('userToken', token)
 
 				onSetGoal([totalCalories, totalProtein])
 			} else setError(res.error)
@@ -31,10 +32,11 @@ export default function SetCount({onSetGoal}) {
 			if (!username || !password) return setError(true)
 			const res = await postData('http://localhost:8706/register', {username, password, totalCalories: calories, totalProtein: protein})
 			if (!res.error) {
-				const {totalCalories, totalProtein} = res
+				const {totalCalories, totalProtein, token} = res
 				localStorage.setItem('dailyGoal', `[${totalCalories}, ${totalProtein}]`)
 				localStorage.setItem('mode', 'dark')
 				localStorage.setItem('current', '[0,0]')
+				localStorage.setItem('userToken', token)
 				onSetGoal([totalCalories, totalProtein])
 			} else setError(er)
 		}
