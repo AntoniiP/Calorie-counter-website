@@ -24,6 +24,7 @@ function isAuthenticated(req, res, next) {
 		if (err) return res.status(403).send({ error: 'Token invalid or expired.' })
 
 		req.user = user;
+		next()
 	})
 	
 }
@@ -78,7 +79,7 @@ app.post('/login', async (req, res) => {
 	}
 })
 
-app.post('/update', isAuthenticated, (req, res) => {
+app.get('/update', isAuthenticated, (req, res) => {
 	console.log(req.user)
 })
 
