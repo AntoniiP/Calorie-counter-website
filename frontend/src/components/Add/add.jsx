@@ -10,7 +10,7 @@ export default function Add({ toggleDiv }) {
 	const [ brandsData, setBrandsData ] = useState([])
 	
 	const {updateCount} = useContext(AppContext)
-	const {_, getData} = useFetch()
+	const {postData, getData} = useFetch()
 	
 	async function toggleSwitch() {
 		
@@ -28,7 +28,7 @@ export default function Add({ toggleDiv }) {
 		if (event.keyCode === 13) return addCount()
 	}
 	
-	function addCount() {
+	async function addCount() {
 		const protein = $('#prote').val(),
 			cal = $('#cal').val()
 		if (cal < 10 || protein < 0) return
@@ -38,6 +38,7 @@ export default function Add({ toggleDiv }) {
 		localStorage.setItem('current', JSON.stringify(current))
 		toggleDiv()
 		updateCount(current)
+		const res = await getData('http://localhost:8706/update', { 'authorization': 'Bearer ' + localStorage.getItem('userToken') })
 	}
 
 	return (
@@ -71,7 +72,7 @@ export default function Add({ toggleDiv }) {
 					</div>
 				) : (
 						<div className='brands'>
-							{ brandsData.map((x) =><Brand name={x.Name} icon={x.icon}></Brand>) }
+							{ brandsData.map((x, i) =><Brand key={i} name={x.Name} icon={x.icon}></Brand>) }
 						</div>
 				)}
 			</div>
