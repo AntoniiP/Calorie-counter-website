@@ -7,9 +7,26 @@ const express = require('express'),
 	app = express(),
 	PORT = 8706,
 	db = require('./models/user'),
-	{hashPassword} = require('./functions'),
+	{ hashPassword } = require('./functions'),
 	cors = require('cors'),
-	fs = require('fs')
+	fs = require('fs'),
+	jwt = require('jsonwebtoken');
+
+function generateToken(username) {
+	return jwt.sign({username}, process.env.ACCESS_TOKEN) // No expiresIn field so user can be kept logged in
+}
+function isAuthenticated(req, res, next) {
+	const authHeader = req.headers[ 'authorization' ],
+		token = authHeader && authHeader.split(' ')[ 1 ]
+	
+	if (!token) return res.status(401).send({ error: "Invalid Credentials" })
+	jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
+		if (err) return res.status(403).send({ error: 'Token invalid or expired.' })
+
+		req.user = user;
+	})
+	
+}
 
 app.use(bodyparser.json(), bodyparser.urlencoded({extended: true}), cors())
 
@@ -35,8 +52,8 @@ app.post('/register', async (req, res) => {
 		currentCalories: 0,
 		currentProtein: 0
 	})
-
-	return res.status(200).send({totalCalories, totalProtein})
+	const token = generateToken(username)
+	return res.status(200).send({totalCalories, totalProtein, token})
 })
 
 app.post('/login', async (req, res) => {
@@ -51,12 +68,18 @@ app.post('/login', async (req, res) => {
 
 		if (!isMatch) return res.status(401).send({error: 'Invalid credentials.'})
 
-		const {totalCalories, totalProtein, currentCalories, currentProtein, mealLog, meals, food} = user
-		return res.send({totalCalories, totalProtein, currentCalories, currentProtein, mealLog, meals, food})
+		const { totalCalories, totalProtein, currentCalories, currentProtein, mealLog, meals, food } = user
+		const token = generateToken(username)
+		
+		return res.send({totalCalories, totalProtein, currentCalories, currentProtein, mealLog, meals, food, token})
 	} catch (er) {
 		console.error(er)
 		return res.status(500).send({error: 'An error occurred while processing your request.'})
 	}
+})
+
+app.post('/update', isAuthenticated, (req, res) => {
+	console.log(req.user)
 })
 
 app.get('/brands', (req, res) => {
