@@ -12,19 +12,24 @@ const express = require('express'),
 	fs = require('fs'),
 	jwt = require('jsonwebtoken');
 
-function generateToken(username) {
-	return jwt.sign({username}, process.env.ACCESS_TOKEN) // No expiresIn field so user can be kept logged in
+function generateToken(_id) {
+	return jwt.sign({_id}, process.env.ACCESS_TOKEN) // No expiresIn field so user can be kept logged in
 }
 function isAuthenticated(req, res, next) {
 	const authHeader = req.headers[ 'authorization' ],
 		token = authHeader && authHeader.split(' ')[ 1 ]
 	
 	if (!token) return res.status(401).send({ error: "Invalid Credentials" })
-	jwt.verify(token, process.env.ACCESS_TOKEN, (err, user) => {
+	jwt.verify(token, process.env.ACCESS_TOKEN, async (err, decoded) => {
 		if (err) return res.status(403).send({ error: 'Token invalid or expired.' })
-
-		req.user = user;
-		next()
+		try {
+			const user = await db.findOne({ _id: decoded._id })
+			if (!user) return res.status(404).send({ error: 'User not found' })
+			req.user = user;
+			next()
+		} catch (err) {
+			return res.status(500).send({ error: 'Failed to authenticate user.' })
+		}
 	})
 	
 }
@@ -45,7 +50,7 @@ app.post('/register', async (req, res) => {
 
 	const hash = await hashPassword(password)
 
-	await db.create({
+	const user = await db.create({
 		username,
 		password: hash,
 		totalCalories,
@@ -53,7 +58,7 @@ app.post('/register', async (req, res) => {
 		currentCalories: 0,
 		currentProtein: 0
 	})
-	const token = generateToken(username)
+	const token = generateToken(user._id)
 	return res.status(200).send({totalCalories, totalProtein, token})
 })
 
@@ -70,7 +75,7 @@ app.post('/login', async (req, res) => {
 		if (!isMatch) return res.status(401).send({error: 'Invalid credentials.'})
 
 		const { totalCalories, totalProtein, currentCalories, currentProtein, mealLog, meals, food } = user
-		const token = generateToken(username)
+		const token = generateToken(user._id)
 		
 		return res.send({totalCalories, totalProtein, currentCalories, currentProtein, mealLog, meals, food, token})
 	} catch (er) {
