@@ -1,19 +1,18 @@
 import './add.css'
 import AppContext from '../../context/AppContext'
-import { useState, useContext } from 'react'
+import {useState, useContext} from 'react'
 import useFetch from '../../hooks/useFetch'
 import Brand from '../Brand/brand'
 
-export default function Add({ toggleDiv }) {
-	const [ isActive, setActive ] = useState(true)
-	const [ isRequestMade, setIsRequestMade ] = useState(false)
-	const [ brandsData, setBrandsData ] = useState([])
-	
+export default function Add({toggleDiv}) {
+	const [isActive, setActive] = useState(true)
+	const [isRequestMade, setIsRequestMade] = useState(false)
+	const [brandsData, setBrandsData] = useState([])
+
 	const {updateCount} = useContext(AppContext)
 	const {postData, getData} = useFetch()
-	
+
 	async function toggleSwitch() {
-		
 		if (!isRequestMade) {
 			const res = await getData('http://localhost:8706/brands')
 			if (!res.error) {
@@ -21,24 +20,24 @@ export default function Add({ toggleDiv }) {
 				setIsRequestMade(true)
 			}
 		}
-        setActive(!isActive)
+		setActive(!isActive)
 	}
-	
+
 	function handleKeyDown(event) {
 		if (event.keyCode === 13) return addCount()
 	}
-	
+
 	async function addCount() {
 		const protein = $('#prote').val(),
 			cal = $('#cal').val()
 		if (cal < 10 || protein < 0) return
 		const current = JSON.parse(localStorage.getItem('current'))
 		if (cal) current[0] += Number(cal)
-		if (protein) current[ 1 ] += Number(protein)
+		if (protein) current[1] += Number(protein)
 		localStorage.setItem('current', JSON.stringify(current))
 		toggleDiv()
 		updateCount(current)
-		const res = await getData('http://localhost:8706/update', { 'authorization': 'Bearer ' + localStorage.getItem('userToken') })
+		const res = await postData('http://localhost:8706/update', {currentCalories: current[0], currentProtein: current[1]}, {authorization: 'Bearer ' + localStorage.getItem('userToken')})
 	}
 
 	return (
@@ -71,9 +70,11 @@ export default function Add({ toggleDiv }) {
 						</button>
 					</div>
 				) : (
-						<div className='brands'>
-							{ brandsData.map((x, i) =><Brand key={i} name={x.Name} icon={x.icon}></Brand>) }
-						</div>
+					<div className='brands'>
+						{brandsData.map((x, i) => (
+							<Brand key={i} name={x.Name} icon={x.icon}></Brand>
+						))}
+					</div>
 				)}
 			</div>
 		</div>

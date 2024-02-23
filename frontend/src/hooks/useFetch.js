@@ -4,13 +4,12 @@ const useFetch = () => {
 	const [error, setError] = useState(null)
 
 	const postData = async (url, data, headers = {}) => {
-		setError(null) 
+		setError(null)
+		headers['Content-Type'] = 'application/json'
 		try {
 			const response = await fetch(url, {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
+				headers,
 				body: JSON.stringify(data)
 			})
 			const result = await response.json()
