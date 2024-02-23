@@ -84,8 +84,18 @@ app.post('/login', async (req, res) => {
 	}
 })
 
-app.get('/update', isAuthenticated, (req, res) => {
-	console.log(req.user)
+app.post('/update', isAuthenticated, async (req, res) => {
+	const { currentCalories, currentProtein } = req.body
+	if (!currentCalories || !currentProtein) return res.status(400).send({ error: 'Invalid form' })
+	try {
+		const user = req.user
+		user.currentCalories = currentCalories
+		user.currentProtein = currentProtein
+		await user.save()
+		res.status(200)
+	} catch (err) {
+		res.status(500).send({ error: 'Failed to update'})
+	}
 })
 
 app.get('/brands', (req, res) => {
