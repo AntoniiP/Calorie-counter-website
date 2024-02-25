@@ -98,19 +98,26 @@ app.post('/update', isAuthenticated, async (req, res) => {
 	}
 })
 
-app.get('/brands', (req, res) => {
+app.get('/brands/:brand', (req, res) => {
+	console.log(req.params)
 	const files = fs.readdirSync('./brandsData')
 	
 	const names = files.map((a) => a.split('.')[0])
-	const icons  = files.map(x => require('./brandsData/' + x)).map(x => x.icon)
-	
-	const brandIconsArray = names.map((brand, index) => {
-		return {Name: brand, icon: icons[index]}
-	})
-	// Returns an array in the form of
-	// 	[ {Name: "", icon: ""}, ... ]
+	const json = files.map(x => require('./brandsData/' + x))
+	const icons = json.map(x => x.icon)
+	if (req.params?.brand) {
+		if (!names.includes(req.params.brand)) {
+			const brandIconsArray = names.map((brand, index) => {
+				return {Name: brand, icon: icons[index]}
+			})
+			// Returns an array in the form of
+			// 	[ {Name: "", icon: ""}, ... ]
 
-	res.send(brandIconsArray)
+			res.send(brandIconsArray)
+		}
+
+		return res.send(json.find(x => x.name == req.params.brand))
+	}
 })
 
 app.get('/meallog', (req, res) => {})
