@@ -96,7 +96,6 @@ app.post('/update', isAuthenticated, async (req, res) => {
 })
 
 app.get('/brands/:brand', (req, res) => {
-	console.log(req.params)
 	const files = fs.readdirSync('./brandsData')
 	
 	const names = files.map((a) => a.split('.')[0])
@@ -116,11 +115,5 @@ app.get('/brands/:brand', (req, res) => {
 		return res.send(json.find(x => x.name == req.params.brand))
 	}
 })
-
-app.get('/meallog', (req, res) => {})
-
-app.get('/meals', (req, res) => {})
-
-app.get('/food', (req, res) => {})
 
 app.listen(PORT, () => console.log('Server started on http://localhost:8706'))
