@@ -1,4 +1,5 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt'),
+	jwt = require('jsonwebtoken')
 
 /**
  * Hashes a password using bcrypt.
@@ -14,5 +15,13 @@ async function hashPassword(password, saltRounds = 10) {
 		throw error // It's better to throw the error to be handled by the caller
 	}
 }
+/**
+ * Generates a unique token based on a MongoDB _id 
+ * @param {string} _id 
+ * @returns User web token
+ */
+function generateToken(_id) {
+	return jwt.sign({_id}, process.env.ACCESS_TOKEN) // No expiresIn field so user can be kept logged in
+}
 
-module.exports = {hashPassword}
+module.exports = {hashPassword, generateToken}

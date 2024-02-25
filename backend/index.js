@@ -7,14 +7,11 @@ const express = require('express'),
 	app = express(),
 	PORT = 8706,
 	db = require('./models/user'),
-	{ hashPassword } = require('./functions'),
+	{ hashPassword, generateToken } = require('./functions'),
 	cors = require('cors'),
 	fs = require('fs'),
 	jwt = require('jsonwebtoken');
 
-function generateToken(_id) {
-	return jwt.sign({_id}, process.env.ACCESS_TOKEN) // No expiresIn field so user can be kept logged in
-}
 function isAuthenticated(req, res, next) {
 	const authHeader = req.headers[ 'authorization' ],
 		token = authHeader && authHeader.split(' ')[ 1 ]
