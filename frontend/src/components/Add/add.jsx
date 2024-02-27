@@ -8,7 +8,8 @@ export default function Add({toggleDiv}) {
 	const [isActive, setActive] = useState(true)
 	const [isRequestMade, setIsRequestMade] = useState(false)
 	const [brandsData, setBrandsData] = useState([])
-
+	const [ sharedData, setSharedData ] = useState([])
+	
 	const {updateCount} = useContext(AppContext)
 	const {postData, getData} = useFetch()
 
@@ -39,6 +40,7 @@ export default function Add({toggleDiv}) {
 		updateCount(current)
 		const res = await postData('http://localhost:8706/update', {currentCalories: current[0], currentProtein: current[1]}, {authorization: 'Bearer ' + localStorage.getItem('userToken')})
 	}
+
 
 	return (
 		<div className='add-wrapper'>
@@ -71,8 +73,13 @@ export default function Add({toggleDiv}) {
 					</div>
 				) : (
 					<div className='brands'>
-						{brandsData.map((x, i) => (
-							<Brand key={i} name={x.Name} icon={x.icon}></Brand>
+							{ sharedData.length ? <div>
+								{console.log(sharedData)}
+								{sharedData.map(item => <div>item.name</div>) 
+								}
+							</div>
+						: brandsData.map((x, i) => (
+							<Brand key={i} name={x.Name} icon={x.icon} updateData={setSharedData}></Brand>
 						))}
 					</div>
 				)}
