@@ -14,7 +14,7 @@ export default function Add({toggleDiv}) {
 
 	async function toggleSwitch() {
 		if (!isRequestMade) {
-			const res = await getData('http://localhost:8706/brands')
+			const res = await getData('http://localhost:8706/brands/all')
 			if (!res.error) {
 				setBrandsData(res)
 				setIsRequestMade(true)
