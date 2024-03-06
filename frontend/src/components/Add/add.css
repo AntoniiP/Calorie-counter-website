@@ -135,3 +135,12 @@
 	top: 30px;
 	cursor: pointer;
 }
+.brand-item-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: auto; 
+    box-sizing: border-box;
+    padding: 10px;	
+
+}

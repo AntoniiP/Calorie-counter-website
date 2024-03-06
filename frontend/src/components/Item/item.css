@@ -1,0 +1,13 @@
+.item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: calc(20% - 20px); /* 20% for 5 items minus the total margin */
+    height: 200px;
+    background-color: var(--card-color);
+    margin: 10px;
+    border-radius: 20px;
+    box-sizing: border-box; /* Include padding and border in the width */
+}
