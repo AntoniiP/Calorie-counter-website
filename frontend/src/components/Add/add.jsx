@@ -110,7 +110,7 @@ export default function Add({toggleDiv}) {
 				) : (
 					<div className='brands'>
 						{sharedData.name ? (
-							<div>
+							<div className="brand-item-wrapper">
 								{parsedData.map((item, index) => (
 									<Item key={index} name={item.name} calories={item.calories} protein={item.protein} />
 								))}
