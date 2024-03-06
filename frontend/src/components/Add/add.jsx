@@ -1,15 +1,17 @@
 import './add.css'
 import AppContext from '../../context/AppContext'
-import {useState, useContext} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import useFetch from '../../hooks/useFetch'
 import Brand from '../Brand/brand'
+import Item from '../Item/item'
 
 export default function Add({toggleDiv}) {
 	const [isActive, setActive] = useState(true)
 	const [isRequestMade, setIsRequestMade] = useState(false)
 	const [brandsData, setBrandsData] = useState([])
-	const [ sharedData, setSharedData ] = useState([])
-	
+	const [sharedData, setSharedData] = useState([])
+	const [parsedData, setParsedData] = useState([])
+
 	const {updateCount} = useContext(AppContext)
 	const {postData, getData} = useFetch()
 
@@ -21,6 +23,7 @@ export default function Add({toggleDiv}) {
 				setIsRequestMade(true)
 			}
 		}
+
 		setActive(!isActive)
 	}
 
@@ -41,6 +44,39 @@ export default function Add({toggleDiv}) {
 		const res = await postData('http://localhost:8706/update', {currentCalories: current[0], currentProtein: current[1]}, {authorization: 'Bearer ' + localStorage.getItem('userToken')})
 	}
 
+	function parseData(data) {
+		let parsedData = []
+		Object.keys(data).forEach((category) => {
+			if (typeof data[category] === 'object')
+				Object.keys(data[category]).forEach((item) => {
+					const sizes = data[category][item]
+
+					Object.keys(sizes).forEach((size) => {
+						//
+						const milkTypes = sizes[size]
+
+						Object.keys(milkTypes).forEach((milkType) => {
+							const {calories, protein} = milkTypes[milkType]
+
+							parsedData.push({
+								category,
+								name: `${item} (${size}, ${milkType})`,
+								calories,
+								protein
+							})
+						})
+					})
+				})
+		})
+
+		return parsedData
+	}
+
+	useEffect(() => {
+		// Make sure parseData is defined outside of this component or is a utility function
+		const data = parseData(sharedData)
+		setParsedData(data) // Update the state with the parsed data
+	}, [sharedData])
 
 	return (
 		<div className='add-wrapper'>
@@ -73,14 +109,15 @@ export default function Add({toggleDiv}) {
 					</div>
 				) : (
 					<div className='brands'>
-							{ sharedData.length ? <div>
-								{console.log(sharedData)}
-								{sharedData.map(item => <div>item.name</div>) 
-								}
+						{sharedData.name ? (
+							<div>
+								{parsedData.map((item, index) => (
+									<Item key={index} name={item.name} calories={item.calories} protein={item.protein} />
+								))}
 							</div>
-						: brandsData.map((x, i) => (
-							<Brand key={i} name={x.Name} icon={x.icon} updateData={setSharedData}></Brand>
-						))}
+						) : (
+							brandsData.map((x, i) => <Brand key={i} name={x.Name} icon={x.icon} updateData={setSharedData}></Brand>)
+						)}
 					</div>
 				)}
 			</div>

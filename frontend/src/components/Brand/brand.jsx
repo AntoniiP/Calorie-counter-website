@@ -9,9 +9,7 @@ export default function Brand({name, icon, updateData}) {
 
 	async function getBrandData(name) {
 			const res = await getData('http://localhost:8706/brands/' + name)
-			if (!res.error) {
-				updateData([ res ].filter(x => !['name', 'icon'].includes(x)))
-			}
+			if (!res.error) updateData(res)
 	}
 
 	return (
