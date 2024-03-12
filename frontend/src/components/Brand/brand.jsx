@@ -13,6 +13,6 @@ export default function Brand({name, icon, updateData}) {
 	}
 
 	return (
-		<img className={'brand-icon'} src={icon} alt='' onClick={() => getBrandData(name)}></img>
+		<img className={'brand-icon'} src={icon} loading="lazy" alt='' onClick={() => getBrandData(name)}></img>
 	)
 }

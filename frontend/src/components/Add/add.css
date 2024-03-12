@@ -141,6 +141,6 @@
     flex-wrap: wrap;
     overflow-y: auto; 
     box-sizing: border-box;
-    padding: 10px;	
-
+    padding: 10px;
+    height: 65vh; /* Adjust this to the combined height of the items you want visible */
 }

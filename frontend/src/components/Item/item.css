@@ -3,11 +3,23 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    width: calc(20% - 20px); /* 20% for 5 items minus the total margin */
-    height: 200px;
+    width: calc(20% - 20px); /* 20% for 5 items per row minus the total margin */
+    height: 300px;
     background-color: var(--card-color);
-    margin: 10px;
+    margin: 10px; /* 10px margin on all sides */
     border-radius: 20px;
     box-sizing: border-box; /* Include padding and border in the width */
+}
+.text-content h4 {
+    margin: 10px 0 10px 0;
+    text-align: center;
+    height: 50px;
+
+}
+.image-container {
+    width: 100%;
+    background: #4ca46f;
+    height: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
