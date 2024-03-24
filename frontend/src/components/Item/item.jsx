@@ -11,10 +11,10 @@ export default function Item({name, calories, protein, image}) {
             </div>
             <div className="text-content">
                 <h4>{ name }</h4>
-                <h4>Calories: { calories }</h4>
-                <h4>Protein: { protein }</h4>
+                <h5>Calories: { calories }</h5>
+                <h5>Protein: { protein }</h5>
             </div>
-            <button className="add">Add to Intake</button>
+            <button className="add-button">Add to Intake</button>
         </div>
 	)
 }

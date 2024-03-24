@@ -41,7 +41,7 @@ export default function Add({toggleDiv}) {
 		localStorage.setItem('current', JSON.stringify(current))
 		toggleDiv()
 		updateCount(current)
-		const res = await postData('http://localhost:8706/update', {currentCalories: current[0], currentProtein: current[1]}, {authorization: 'Bearer ' + localStorage.getItem('userToken')})
+		await postData('http://localhost:8706/update', {currentCalories: current[0], currentProtein: current[1]}, {authorization: 'Bearer ' + localStorage.getItem('userToken')})
 	}
 
 	function parseData(data) {
@@ -52,9 +52,8 @@ export default function Add({toggleDiv}) {
 					const sizes = data[category][item]
 
 					Object.keys(sizes).forEach((size) => {
-						//
 						const milkTypes = sizes[size]
-
+						// Will change this.
 						Object.keys(milkTypes).forEach((milkType) => {
 							const {calories, protein} = milkTypes[milkType]
 
@@ -73,9 +72,8 @@ export default function Add({toggleDiv}) {
 	}
 
 	useEffect(() => {
-		// Make sure parseData is defined outside of this component or is a utility function
 		const data = parseData(sharedData)
-		setParsedData(data) // Update the state with the parsed data
+		setParsedData(data)
 	}, [sharedData])
 
 	return (
