@@ -144,3 +144,34 @@
     padding: 10px;
     height: 65vh; /* Adjust this to the combined height of the items you want visible */
 }
+.brand-items {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.categories-selector {
+	width: 80%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-evenly;
+	margin: 5px;
+}
+.button-back, .button-category {
+	border: none;
+	cursor: pointer;
+
+}
+.button-back {
+	font-weight: bolder;
+	background: none;
+	outline: none;
+	font-size: 40px;
+}
+.button-category {
+	border-radius: 10px;
+	background: #03a9f4;
+	color: white;
+	font-size: 16px;
+	padding: 10px;
+}

@@ -11,6 +11,7 @@ export default function Add({toggleDiv}) {
 	const [brandsData, setBrandsData] = useState([])
 	const [sharedData, setSharedData] = useState([])
 	const [parsedData, setParsedData] = useState([])
+	const [categories, setCategories] = useState([])
 
 	const {updateCount} = useContext(AppContext)
 	const {postData, getData} = useFetch()
@@ -57,8 +58,9 @@ export default function Add({toggleDiv}) {
 						Object.keys(milkTypes).forEach((milkType) => {
 							const {calories, protein} = milkTypes[milkType]
 
+							categories.push(category)
+
 							parsedData.push({
-								category,
 								name: `${item} (${size}, ${milkType})`,
 								calories,
 								protein
@@ -68,12 +70,13 @@ export default function Add({toggleDiv}) {
 				})
 		})
 
-		return parsedData
+		return [parsedData, categories]
 	}
 
 	useEffect(() => {
 		const data = parseData(sharedData)
-		setParsedData(data)
+		setParsedData(data[0])
+		setCategories([...new Set(data[1])])
 	}, [sharedData])
 
 	return (
@@ -108,10 +111,16 @@ export default function Add({toggleDiv}) {
 				) : (
 					<div className='brands'>
 						{sharedData.name ? (
-							<div className="brand-item-wrapper">
-								{parsedData.map((item, index) => (
-									<Item key={index} name={item.name} calories={item.calories} protein={item.protein} />
-								))}
+							<div className='brand-items'>
+								<div className='categories-selector'>
+										<button className='button-back'>&lt;</button>
+										{ categories.map((item, key) => <button className="button-category" id={ item }>{ item }</button>)}
+								</div>
+								<div className='brand-item-wrapper'>
+									{parsedData.map((item, index) => (
+										<Item key={index} name={item.name} calories={item.calories} protein={item.protein} />
+									))}
+								</div>
 							</div>
 						) : (
 							brandsData.map((x, i) => <Brand key={i} name={x.Name} icon={x.icon} updateData={setSharedData}></Brand>)
