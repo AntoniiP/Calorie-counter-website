@@ -114,7 +114,7 @@ export default function Add({toggleDiv}) {
 							<div className='brand-items'>
 								<div className='categories-selector'>
 										<button className='button-back'>&lt;</button>
-										{ categories.map((item, key) => <button className="button-category" id={ item }>{ item }</button>)}
+										{ categories.map((item, index) => <button key={index} className="button-category" id={ item }>{ item }</button>)}
 								</div>
 								<div className='brand-item-wrapper'>
 									{parsedData.map((item, index) => (

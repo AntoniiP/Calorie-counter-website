@@ -142,7 +142,7 @@
     overflow-y: auto; 
     box-sizing: border-box;
     padding: 10px;
-    height: 65vh; /* Adjust this to the combined height of the items you want visible */
+    height: 60vh; /* Adjust this to the combined height of the items you want visible */
 }
 .brand-items {
 	display: flex;
