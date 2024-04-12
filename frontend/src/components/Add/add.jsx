@@ -113,7 +113,7 @@ export default function Add({toggleDiv}) {
 						{sharedData.name ? (
 							<div className='brand-items'>
 								<div className='categories-selector'>
-										<button className='button-back'>&lt;</button>
+										<button className='button-back' onClick={() => setSharedData([])}>&lt;</button>
 										{ categories.map((item, index) => <button key={index} className="button-category" id={ item }>{ item }</button>)}
 								</div>
 								<div className='brand-item-wrapper'>
