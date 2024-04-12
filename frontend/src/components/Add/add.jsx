@@ -79,6 +79,14 @@ export default function Add({toggleDiv}) {
 		setCategories([...new Set(data[1])])
 	}, [sharedData])
 
+
+	function handleSearch(event) {
+		const text = ($('#item-search').val() + event.key).toLowerCase()
+		// Add filter to parsedData
+		// Then 
+		// setParsedData(parsedData)
+	}
+
 	return (
 		<div className='add-wrapper'>
 			<div className='add-cal'>
@@ -113,8 +121,15 @@ export default function Add({toggleDiv}) {
 						{sharedData.name ? (
 							<div className='brand-items'>
 								<div className='categories-selector'>
-										<button className='button-back' onClick={() => setSharedData([])}>&lt;</button>
-										{ categories.map((item, index) => <button key={index} className="button-category" id={ item }>{ item }</button>)}
+									<button className='button-back' onClick={() => setSharedData([])}>
+										&lt;
+									</button>
+									{categories.map((item, index) => (
+										<button key={index} className='button-category' id={item}>
+											{item}
+										</button>
+									))}
+									<input type='text' className='search' id="item-search" autoComplete='false' autoCorrect='false' placeholder='Search...' onKeyDown={handleSearch} />
 								</div>
 								<div className='brand-item-wrapper'>
 									{parsedData.map((item, index) => (
