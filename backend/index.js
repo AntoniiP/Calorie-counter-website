@@ -109,7 +109,7 @@ app.get('/brands/:brand', (req, res) => {
 			// Returns an array in the form of
 			// 	[ {Name: "", icon: ""}, ... ]
 
-			res.send(brandIconsArray)
+			return res.send(brandIconsArray)
 		}
 
 		return res.send(json.find(x => x.name == req.params.brand))
