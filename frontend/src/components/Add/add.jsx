@@ -10,8 +10,10 @@ export default function Add({toggleDiv}) {
 	const [isRequestMade, setIsRequestMade] = useState(false)
 	const [brandsData, setBrandsData] = useState([])
 	const [sharedData, setSharedData] = useState([])
+	const [originalData, setOriginalData] = useState([])
 	const [parsedData, setParsedData] = useState([])
-	const [categories, setCategories] = useState([])
+	const [ categories, setCategories ] = useState([])
+	const [inputValue, setInputValue] = useState('')
 
 	const {updateCount} = useContext(AppContext)
 	const {postData, getData} = useFetch()
@@ -47,19 +49,16 @@ export default function Add({toggleDiv}) {
 
 	function parseData(data) {
 		let parsedData = []
+		let categories = []
 		Object.keys(data).forEach((category) => {
 			if (typeof data[category] === 'object')
 				Object.keys(data[category]).forEach((item) => {
 					const sizes = data[category][item]
-
 					Object.keys(sizes).forEach((size) => {
 						const milkTypes = sizes[size]
-						// Will change this.
 						Object.keys(milkTypes).forEach((milkType) => {
 							const {calories, protein} = milkTypes[milkType]
-
 							categories.push(category)
-
 							parsedData.push({
 								name: `${item} (${size}, ${milkType})`,
 								calories,
@@ -69,22 +68,24 @@ export default function Add({toggleDiv}) {
 					})
 				})
 		})
-
 		return [parsedData, categories]
 	}
 
 	useEffect(() => {
-		const data = parseData(sharedData)
-		setParsedData(data[0])
-		setCategories([...new Set(data[1])])
+		const [data, categoriesData] = parseData(sharedData)
+		setOriginalData(data) // Store original data
+		setParsedData(data) // Also initialize parsedData with original data
+		setCategories([...new Set(categoriesData)])
 	}, [sharedData])
 
-
 	function handleSearch(event) {
-		const text = ($('#item-search').val() + event.key).toLowerCase()
-		// Add filter to parsedData
-		// Then 
-		// setParsedData(parsedData)
+		const searchText = event.target.value.toLowerCase()
+		setInputValue(event.target.value) // Update inputValue on each change
+
+		// Always filter from the original full dataset
+		const filteredData = searchText ? originalData.filter((item) => item.name.toLowerCase().includes(searchText)).sort((a, b) => a.name.localeCompare(b.name)) : [...originalData] // If no search text, show all original data
+
+		setParsedData(filteredData)
 	}
 
 	return (
@@ -129,7 +130,7 @@ export default function Add({toggleDiv}) {
 											{item}
 										</button>
 									))}
-									<input type='text' className='search' id="item-search" autoComplete='false' autoCorrect='false' placeholder='Search...' onKeyDown={handleSearch} />
+									<input value={inputValue} type='text' className='search' id='item-search' autoComplete='false' autoCorrect='false' placeholder='Search...' onChange={handleSearch} />
 								</div>
 								<div className='brand-item-wrapper'>
 									{parsedData.map((item, index) => (
