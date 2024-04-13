@@ -1,13 +1,16 @@
 import './item.css'
 import AppContext from '../../context/AppContext'
 import {useState, useContext} from 'react'
-
+import useFetch from '../../hooks/useFetch'
 export default function Item({name, calories, protein, image}) {
     const {updateCount} = useContext(AppContext)
-    const [isAdded, setIsAdded] = useState(false)
+    const [ isAdded, setIsAdded ] = useState(false)
+	const {postData, getData} = useFetch()
+    
     async function addCount(cal, protein) {
 
         setIsAdded(true)
+        setTimeout(() => setIsAdded(false), 2000)
 
 		const current = JSON.parse(localStorage.getItem('current'))
 		current[0] += Number(cal)
@@ -15,8 +18,7 @@ export default function Item({name, calories, protein, image}) {
 		
         localStorage.setItem('current', JSON.stringify(current))
 		updateCount(current)
-		// await postData('http://localhost:8706/update', {currentCalories: current[0], currentProtein: current[1]}, {authorization: 'Bearer ' + localStorage.getItem('userToken')})
-        setTimeout(() => setIsAdded(false), 2000)
+		await postData('http://localhost:8706/update', {currentCalories: current[0], currentProtein: current[1]}, {authorization: 'Bearer ' + localStorage.getItem('userToken')})
     }
     
 	return (

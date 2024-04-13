@@ -129,8 +129,9 @@ export default function Add({toggleDiv}) {
 										<button key={index} className='button-category' id={item}>
 											{item}
 										</button>
-									))}
-									<input value={inputValue} type='text' className='search' id='item-search' autoComplete='false' autoCorrect='false' placeholder='Search...' onChange={handleSearch} />
+									)) }
+										
+									<input value={inputValue} type='text' className='search'  id='item-search' placeholder='Search...' onChange={handleSearch} autoComplete='off' />
 								</div>
 								<div className='brand-item-wrapper'>
 									{parsedData.map((item, index) => (
