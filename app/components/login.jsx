@@ -1,17 +1,38 @@
-import {StyleSheet, Text, View, TextInput, Button} from 'react-native'
+import {StyleSheet, Text, View, TextInput} from 'react-native'
 import React, {useState} from 'react'
+import useFetch from '../hooks/useFetch'
 
 export default function Login() {
-	const [text, setText] = useState('')
-	const [pass, setPass] = useState('')
+	const [username, setUsername] = useState('')
+	const [password, setPass] = useState('')
 	const [isLoginPage, setLoginPage] = useState(true)
+	const [error, setError] = useState(false)
+	const {postData} = useFetch()
 
-	function handleLogin(type) {
-		console.log('clicked')
+	async function handleLogin(type) {
+		const apiUrl = process.env.EXPO_PUBLIC_API_URL
+		if (type == 'login') {
+			if (!username || !password) return setError(true)
+			const res = await postData(apiUrl + '/login', {username, password})
+			if (!res.error) {
+				const {totalCalories, totalProtein, currentCalories, currentProtein, token} = res
+
+				console.log(res)
+			} else setError(res.error)
+		} else {
+			if (calories < 10 || protein < 10) return setError(true)
+			if (!username || !password) return setError(true)
+			const res = await postData(apiUrl + '/register', {username, password, totalCalories: calories, totalProtein: protein})
+			if (!res.error) {
+				const {totalCalories, totalProtein, token} = res
+				console.log(res)
+			} else setError(res.error)
+		}
 	}
 
 	function changePage() {
 		setLoginPage(!isLoginPage)
+		setError(false)
 	}
 
 	return (
@@ -25,8 +46,13 @@ export default function Login() {
 					>
 						Login
 					</Text>
-					<TextInput style={styles.input} placeholder='Username' onChangeText={(newText) => setText(newText)} defaultValue={text}></TextInput>
-					<TextInput style={styles.input} secureTextEntry={true} placeholder='Password' onChangeText={(newText) => setPass(newText)} defaultValue={pass}></TextInput>
+					<TextInput style={styles.input} placeholder='Username' onChangeText={(newText) => setUsername(newText)} defaultValue={username}></TextInput>
+					<TextInput style={ styles.input } secureTextEntry={ true } placeholder='Password' onChangeText={ (newText) => {
+						setError(false)
+						setPass(newText)
+					} } defaultValue={ password }></TextInput>
+					{error && <Text style={{color: 'black', fontSize: 16}}>{typeof error == 'string' ? error : 'Please fill out all required fields '}</Text>}
+
 					<View onStartShouldSetResponder={() => handleLogin('login')} style={styles.button} accessibilityLabel='Login Button'>
 						<Text style={{color: '#fff'}}>Login</Text>
 					</View>
@@ -46,8 +72,12 @@ export default function Login() {
 					>
 						Register
 					</Text>
-					<TextInput style={styles.input} placeholder='Username' onChangeText={(newText) => setText(newText)} defaultValue={text}></TextInput>
-					<TextInput style={styles.input} secureTextEntry={true} placeholder='Password' onChangeText={(newText) => setPass(newText)} defaultValue={pass}></TextInput>
+					<TextInput style={styles.input} placeholder='Username' onChangeText={(newText) => setUsername(newText)} defaultValue={username}></TextInput>
+						<TextInput style={ styles.input } secureTextEntry={ true } placeholder='Password' onChangeText={ (newText) => {
+							setError(false)
+							setPass(newText)
+						} } defaultValue={ password }></TextInput>
+					{error && <Text style={{color: 'black', fontSize: 16}}>{typeof error == 'string' ? error : 'Please fill out all required fields '}</Text>}
 					<View onStartShouldSetResponder={() => handleLogin('register')} style={styles.button} accessibilityLabel='Login Button'>
 						<Text style={{color: '#fff'}}>Register</Text>
 					</View>
@@ -62,22 +92,6 @@ export default function Login() {
 		</View>
 	)
 }
-/**
- 				<h1>Register</h1>
-					<input type='text' name='Username' placeholder='Username' id='username' onKeyDown={handleKeyDown} />
-					<input type='password' name='Password' placeholder='Password' id='password' onKeyDown={handleKeyDown} />
-
-					<input type='number' min='10' name='Calories' placeholder='Daily calories goal (cal)' id='cal' onKeyDown={handleKeyDown} />
-					<input type='number' min='1' name='Protein' placeholder='Daily protein goal (g)' id='prote' onKeyDown={handleKeyDown} />
-
-					{error && <div className='error'>{typeof error == 'string' ? error : 'Please fill out all required fields '}</div>}
-					<button className='login-button' onClick={() => handleSubmit('register')}>
-						Register
-					</button>
-					<p>
-						Already have an account? <strong onClick={() => setPage('login')}>Login</strong>
-					</p>
- */
 const styles = StyleSheet.create({
 	start: {
 		display: 'flex',
@@ -118,5 +132,5 @@ const styles = StyleSheet.create({
 		width: 200,
 		height: 50,
 		margin: 15
-	}
+	},
 })
