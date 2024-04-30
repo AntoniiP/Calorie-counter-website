@@ -7,6 +7,8 @@ export default function Login() {
 	const [password, setPass] = useState('')
 	const [isLoginPage, setLoginPage] = useState(true)
 	const [error, setError] = useState(false)
+	const [calories, setCalories] = useState(false)
+	const [protein, setProtein] = useState(false)
 	const {postData} = useFetch()
 
 	async function handleLogin(type) {
@@ -20,7 +22,7 @@ export default function Login() {
 				console.log(res)
 			} else setError(res.error)
 		} else {
-			if (calories < 10 || protein < 10) return setError(true)
+			if (calories < 10 || protein < 10) return setError('Calories and protein must be more than 10')
 			if (!username || !password) return setError(true)
 			const res = await postData(apiUrl + '/register', {username, password, totalCalories: calories, totalProtein: protein})
 			if (!res.error) {
@@ -47,10 +49,16 @@ export default function Login() {
 						Login
 					</Text>
 					<TextInput style={styles.input} placeholder='Username' onChangeText={(newText) => setUsername(newText)} defaultValue={username}></TextInput>
-					<TextInput style={ styles.input } secureTextEntry={ true } placeholder='Password' onChangeText={ (newText) => {
-						setError(false)
-						setPass(newText)
-					} } defaultValue={ password }></TextInput>
+					<TextInput
+						style={styles.input}
+						secureTextEntry={true}
+						placeholder='Password'
+						onChangeText={(newText) => {
+							setError(false)
+							setPass(newText)
+						}}
+						defaultValue={password}
+					></TextInput>
 					{error && <Text style={{color: 'black', fontSize: 16}}>{typeof error == 'string' ? error : 'Please fill out all required fields '}</Text>}
 
 					<View onStartShouldSetResponder={() => handleLogin('login')} style={styles.button} accessibilityLabel='Login Button'>
@@ -73,10 +81,19 @@ export default function Login() {
 						Register
 					</Text>
 					<TextInput style={styles.input} placeholder='Username' onChangeText={(newText) => setUsername(newText)} defaultValue={username}></TextInput>
-						<TextInput style={ styles.input } secureTextEntry={ true } placeholder='Password' onChangeText={ (newText) => {
+					<TextInput
+						style={styles.input}
+						secureTextEntry={true}
+						placeholder='Password'
+						onChangeText={(newText) => {
 							setError(false)
 							setPass(newText)
-						} } defaultValue={ password }></TextInput>
+						}}
+						defaultValue={password}
+					></TextInput>
+					<TextInput style={styles.input} onChangeText={(newNumber) => setCalories(newNumber)} inputMode='numeric' placeholder='Daily calories goal (cal)'></TextInput>
+					<TextInput style={styles.input} onChangeText={(newNumber) => setProtein(newNumber)} inputMode='numeric' placeholder='Daily protein goal (g)'></TextInput>
+
 					{error && <Text style={{color: 'black', fontSize: 16}}>{typeof error == 'string' ? error : 'Please fill out all required fields '}</Text>}
 					<View onStartShouldSetResponder={() => handleLogin('register')} style={styles.button} accessibilityLabel='Login Button'>
 						<Text style={{color: '#fff'}}>Register</Text>
@@ -98,7 +115,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: '100vw',
-		height: Dimensions.get('screen').height * 0.8
+		height: Dimensions.get('screen').height * 0.9
 	},
 	login: {
 		display: 'flex',
@@ -107,7 +124,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		backgroundColor: '#fff',
 		width: '80%',
-		height: Dimensions.get('screen').height / 2,
+		height: Dimensions.get('screen').height * 0.7,
 		borderRadius: 20
 	},
 	input: {
