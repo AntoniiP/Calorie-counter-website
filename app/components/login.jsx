@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, TextInput} from 'react-native'
+import {StyleSheet, Text, View, TextInput, Dimensions} from 'react-native'
 import React, {useState} from 'react'
 import useFetch from '../hooks/useFetch'
 
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'center',
 		width: '100vw',
-		height: '100vh'
+		height: Dimensions.get('screen').height * 0.8
 	},
 	login: {
 		display: 'flex',
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		backgroundColor: '#fff',
 		width: '80%',
-		height: '80%',
+		height: Dimensions.get('screen').height / 2,
 		borderRadius: 20
 	},
 	input: {
@@ -132,5 +132,5 @@ const styles = StyleSheet.create({
 		width: 200,
 		height: 50,
 		margin: 15
-	},
+	}
 })
