@@ -4,40 +4,79 @@ import React, {useState} from 'react'
 export default function Login() {
 	const [text, setText] = useState('')
 	const [pass, setPass] = useState('')
+	const [isLoginPage, setLoginPage] = useState(true)
 
-	function handleLogin() {}
+	function handleLogin(type) {
+		console.log('clicked')
+	}
+
+	function changePage() {
+		setLoginPage(!isLoginPage)
+	}
 
 	return (
 		<View style={styles.start}>
-			<View style={styles.login}>
-				<Text
-					style={{
-						fontSize: 40
-					}}
-				>
-					Login
-				</Text>
-				<TextInput style={styles.input} placeholder='Username' onChangeText={(newText) => setText(newText)} defaultValue={text}></TextInput>
-				<TextInput style={styles.input} secureTextEntry={true} placeholder='Password' onChangeText={(newText) => setPass(newText)} defaultValue={pass}></TextInput>
-				<Button onPress={handleLogin} title='Login' color='#4ca46f' style={styles.button} accessibilityLabel='Login Button'></Button>
-			</View>
+			{isLoginPage ? (
+				<View style={styles.login}>
+					<Text
+						style={{
+							fontSize: 40
+						}}
+					>
+						Login
+					</Text>
+					<TextInput style={styles.input} placeholder='Username' onChangeText={(newText) => setText(newText)} defaultValue={text}></TextInput>
+					<TextInput style={styles.input} secureTextEntry={true} placeholder='Password' onChangeText={(newText) => setPass(newText)} defaultValue={pass}></TextInput>
+					<View onStartShouldSetResponder={() => handleLogin('login')} style={styles.button} accessibilityLabel='Login Button'>
+						<Text style={{color: '#fff'}}>Login</Text>
+					</View>
+					<Text style={{fontSize: 16, marginTop: 15}}>
+						Don't have an account?{' '}
+						<Text onPress={changePage} style={{fontWeight: 'bold'}}>
+							Create one
+						</Text>
+					</Text>
+				</View>
+			) : (
+				<View style={styles.login}>
+					<Text
+						style={{
+							fontSize: 40
+						}}
+					>
+						Register
+					</Text>
+					<TextInput style={styles.input} placeholder='Username' onChangeText={(newText) => setText(newText)} defaultValue={text}></TextInput>
+					<TextInput style={styles.input} secureTextEntry={true} placeholder='Password' onChangeText={(newText) => setPass(newText)} defaultValue={pass}></TextInput>
+					<View onStartShouldSetResponder={() => handleLogin('register')} style={styles.button} accessibilityLabel='Login Button'>
+						<Text style={{color: '#fff'}}>Register</Text>
+					</View>
+					<Text style={{fontSize: 16, marginTop: 15}}>
+						Already have an account?{' '}
+						<Text onPress={changePage} style={{fontWeight: 'bold'}}>
+							Login
+						</Text>
+					</Text>
+				</View>
+			)}
 		</View>
 	)
 }
 /**
- 				<div className='login'>
-					<h1>Login</h1>
+ 				<h1>Register</h1>
 					<input type='text' name='Username' placeholder='Username' id='username' onKeyDown={handleKeyDown} />
 					<input type='password' name='Password' placeholder='Password' id='password' onKeyDown={handleKeyDown} />
-					{error && <div className='error'>{typeof error == 'string' ? error : 'Please fill out all required fields '}</div>}
 
-					<button className='login-button' onClick={() => handleSubmit('login')}>
-						Login
+					<input type='number' min='10' name='Calories' placeholder='Daily calories goal (cal)' id='cal' onKeyDown={handleKeyDown} />
+					<input type='number' min='1' name='Protein' placeholder='Daily protein goal (g)' id='prote' onKeyDown={handleKeyDown} />
+
+					{error && <div className='error'>{typeof error == 'string' ? error : 'Please fill out all required fields '}</div>}
+					<button className='login-button' onClick={() => handleSubmit('register')}>
+						Register
 					</button>
 					<p>
-						Don't have an account? <strong onClick={() => setPage('register')}>Create one</strong>
+						Already have an account? <strong onClick={() => setPage('login')}>Login</strong>
 					</p>
-				</div>
  */
 const styles = StyleSheet.create({
 	start: {
@@ -74,10 +113,10 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		userSelect: 'none',
 		borderRadius: 10,
 		padding: 5,
 		width: 200,
+		height: 50,
 		margin: 15
 	}
 })
