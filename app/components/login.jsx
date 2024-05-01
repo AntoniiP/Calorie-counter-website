@@ -1,4 +1,5 @@
 import {StyleSheet, Text, View, TextInput, Dimensions} from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState} from 'react'
 import useFetch from '../hooks/useFetch'
 
@@ -18,16 +19,21 @@ export default function Login() {
 			const res = await postData(apiUrl + '/login', {username, password})
 			if (!res.error) {
 				const {totalCalories, totalProtein, currentCalories, currentProtein, token} = res
-
-				console.log(res)
+				await AsyncStorage.setItem('dailyGoal', `[${totalCalories}, ${totalProtein}]`)
+				await AsyncStorage.setItem('mode', 'dark')
+				await AsyncStorage.setItem('current', `[${currentCalories}, ${currentProtein}]`)
+				await AsyncStorage.setItem('userToken', token)
 			} else setError(res.error)
 		} else {
 			if (calories < 10 || protein < 10) return setError('Calories and protein must be more than 10')
 			if (!username || !password) return setError(true)
 			const res = await postData(apiUrl + '/register', {username, password, totalCalories: calories, totalProtein: protein})
 			if (!res.error) {
-				const {totalCalories, totalProtein, token} = res
-				console.log(res)
+				const { totalCalories, totalProtein, token } = res
+				await AsyncStorage.setItem('dailyGoal', `[${totalCalories}, ${totalProtein}]`)
+				await AsyncStorage.setItem('mode', 'dark')
+				await AsyncStorage.setItem('current', '[0,0]')
+				await AsyncStorage.setItem('userToken', token)
 			} else setError(res.error)
 		}
 	}
