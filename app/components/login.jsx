@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState} from 'react'
 import useFetch from '../hooks/useFetch'
 
-export default function Login() {
+export default function Login({onSetGoal}) {
 	const [username, setUsername] = useState('')
 	const [password, setPass] = useState('')
 	const [isLoginPage, setLoginPage] = useState(true)
@@ -23,6 +23,8 @@ export default function Login() {
 				await AsyncStorage.setItem('mode', 'dark')
 				await AsyncStorage.setItem('current', `[${currentCalories}, ${currentProtein}]`)
 				await AsyncStorage.setItem('userToken', token)
+				onSetGoal([totalCalories, totalProtein])
+
 			} else setError(res.error)
 		} else {
 			if (calories < 10 || protein < 10) return setError('Calories and protein must be more than 10')
@@ -34,6 +36,7 @@ export default function Login() {
 				await AsyncStorage.setItem('mode', 'dark')
 				await AsyncStorage.setItem('current', '[0,0]')
 				await AsyncStorage.setItem('userToken', token)
+				onSetGoal([totalCalories, totalProtein])
 			} else setError(res.error)
 		}
 	}
