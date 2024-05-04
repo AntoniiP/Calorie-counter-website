@@ -1,8 +1,8 @@
-import { StyleSheet, Text, SafeAreaView, View } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {useState, useEffect} from 'react'
 import Login from './components/login';
-
+import Nav from './components/Nav'
 export default function App() {
   
   const [count, setCount] = useState([])
@@ -32,11 +32,14 @@ export default function App() {
 
   return (
 		<SafeAreaView style={styles.container}>
-      { user.dailyGoal ? <View>
-        
-      </View> :
-        <Login onSetGoal={ updateDailyGoal } />
-      }
+			{user.dailyGoal ? (
+				<View>
+					<Text>test</Text>
+					<Nav />
+				</View>
+			) : (
+				<Login onSetGoal={updateDailyGoal} />
+			)}
 		</SafeAreaView>
   )
 }
@@ -47,7 +50,7 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
     width: '100%',
+    flex: 0,
     height: '100%',
-    'overflow-x': 'hidden',
 	}
 })
