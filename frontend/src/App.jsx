@@ -6,8 +6,9 @@ import Search from './components/Search/search'
 import Card from './components/Card/card'
 import Login from './components/login/login'
 import AppContext from './context/AppContext'
+import Recipes from './components/recipes/recipes'
 
-function App() {
+function App({type}) {
 	const [count, setCount] = useState(JSON.parse(localStorage.getItem('dailyGoal')) || [])
 
 	const [user, setUser] = useState({})
@@ -21,7 +22,7 @@ function App() {
 		const allData = {}
 		for (let i = 0; i < localStorage.length; i++) {
 			const key = localStorage.key(i)
-			const item =  localStorage.getItem(key)
+			const item = localStorage.getItem(key)
 			allData[key] = item.match(/\[|\(/) ? JSON.parse(item) : item
 		}
 		setUser(allData)
@@ -36,9 +37,11 @@ function App() {
 		}
 		setUser(allData)
 	}
-	return (
-		<AppContext.Provider value={{updateCount}}>
-			{user.dailyGoal ? (
+
+	const componentRoutes = [
+		{
+			route: '/',
+			element: user.dailyGoal ? (
 				<div className='main-wrapper'>
 					<Nav />
 					<Search />
@@ -54,9 +57,21 @@ function App() {
 				</div>
 			) : (
 				<Login onSetGoal={updateDailyGoal} />
-			)}
-		</AppContext.Provider>
-	)
+			)
+		},
+		{
+			route: '/recipes',
+			element: (
+				<div className='main-wrapper'>
+					<Nav />
+					<Search />
+					<Recipes />
+				</div>
+			)
+		}
+	]
+
+	return <AppContext.Provider value={{updateCount}}>{componentRoutes[type].element}</AppContext.Provider>
 }
 
 export default App
