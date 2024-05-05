@@ -1,0 +1,13 @@
+.recipes {
+    margin: 30px 100px 100px 140px;
+    overflow: hidden;
+}
+
+.recipes h3 {
+    font-weight: 400;
+    font-size: 22px;
+}
+
+.recipes span {
+    color: #4ca46f
+}

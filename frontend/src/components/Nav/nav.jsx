@@ -50,7 +50,7 @@ export default function Nav() {
 		<nav className='vertical-nav'>
 			<ul className='nav-list'>
 				<li className='nav-item'>
-					<a href='#' className='nav-link'>
+					<a href='#' onClick={() => window.location.href = '/'} className='nav-link'>
 						<i className='nav-icon home-icon'></i>
 					</a>
 				</li>
@@ -60,7 +60,7 @@ export default function Nav() {
 					</a>
 				</li>
 				<li className='nav-item'>
-					<a href='#' className='nav-link'>
+					<a href='/recipes' className='nav-link'>
 						<i className='nav-icon notes-icon'></i>
 					</a>
 				</li>
