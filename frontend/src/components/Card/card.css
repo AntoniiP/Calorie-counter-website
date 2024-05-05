@@ -55,3 +55,17 @@
 .card::-webkit-scrollbar-thumb {
   background: #888;
 }
+.contentDivs {
+	width: 100%;
+}
+.textButton {
+	font-size: 18px;
+}
+
+.card h2 {
+	margin-left: 20px;
+}
+
+.card p {
+	padding-left: 20px;
+}
