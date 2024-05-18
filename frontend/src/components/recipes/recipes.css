@@ -11,3 +11,6 @@
 .recipes span {
     color: #4ca46f
 }
+.small-cards {
+    display: flex;
+}
