@@ -116,4 +116,10 @@ app.get('/brands/:brand', (req, res) => {
 	}
 })
 
+app.get('/recipes', (req, res) => {
+	const recipes = require('./recipes/recipes.json')
+
+	return res.send(recipes)
+})
+
 app.listen(PORT, () => console.log('Server started on http://localhost:8706'))
