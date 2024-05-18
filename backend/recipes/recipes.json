@@ -1,0 +1,37 @@
+[
+	{
+		"name": "Chocolate Banana Protein Shake",
+		"calories": 350,
+		"protein": 20,
+		"recipe": "1. In a blender, add 1 banana, 1 cup of milk, 1 tablespoon of Nutella, and 1 scoop of chocolate protein powder. 2. Blend until smooth. 3. Serve immediately.",
+		"type": "breakfast"
+	},
+	{
+		"name": "Berry Oatmeal Smoothie",
+		"calories": 400,
+		"protein": 18,
+		"recipe": "1. In a blender, combine 1/2 cup of raspberries, 1/2 cup of Greek yogurt, 1/2 cup of milk, 1/2 cup of oatmeal, and 1 tablespoon of honey. 2. Blend until smooth. 3. Pour into a glass and enjoy.",
+		"type": "breakfast"
+	},
+	{
+		"name": "Nutella Banana Greek Yogurt Smoothie",
+		"calories": 450,
+		"protein": 22,
+		"recipe": "1. In a blender, add 1 banana, 1/2 cup of Greek yogurt, 1 cup of milk, and 1 tablespoon of Nutella. 2. Blend until smooth. 3. Serve and enjoy.",
+		"type": "lunch"
+	},
+	{
+		"name": "Raspberry Chocolate Protein Shake",
+		"calories": 370,
+		"protein": 25,
+		"recipe": "1. In a blender, combine 1/2 cup of raspberries, 1 scoop of chocolate protein powder, 1 cup of milk, and 1 tablespoon of honey. 2. Blend until smooth. 3. Pour into a glass and enjoy.",
+		"type": "dinner"
+	},
+	{
+		"name": "Oatmeal Banana Smoothie",
+		"calories": 380,
+		"protein": 20,
+		"recipe": "1. In a blender, add 1 banana, 1/2 cup of oatmeal, 1 cup of milk, and 1 tablespoon of honey. 2. Blend until smooth. 3. Serve immediately.",
+		"type": "breakfast"
+	}
+]
