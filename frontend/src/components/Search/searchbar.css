@@ -11,12 +11,9 @@
     color: var(--text-color);
 }
 .abs {
-
     position: absolute;
     right: 5vw;
     top: 5vh;
-
-    
 }
 .search h3 {
     color: #D9D9D9;
