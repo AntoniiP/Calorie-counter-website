@@ -14,3 +14,16 @@
 .small-cards {
     display: flex;
 }
+.back-button {
+	border: none;
+    width: 200px;
+    height: 50px;
+    margin: 10px 0;
+	font-size: 36px;
+	font-weight: 600;
+	color: #fff;
+    border-radius: 10px;
+	background-color: #4ca46f;
+	cursor: pointer;
+	user-select: none;
+}

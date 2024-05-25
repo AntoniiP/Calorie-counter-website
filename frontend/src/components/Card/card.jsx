@@ -1,5 +1,5 @@
 import './card.css'
-export default function Card({name, title, content, sortType, button, bottomButton, width, height, border, shadow}) {
+export default function Card({name, title, content, sortType, button, bottomButton, width, height, border, shadow, onClickFunction}) {
 	return (
 		<div className='card main-card' style={{width: width || '30%', height: height || '30vh'}}>
 			<div className='text'>{title ? <h2>{title}</h2> : <h3>{name}</h3>}</div>
@@ -17,7 +17,7 @@ export default function Card({name, title, content, sortType, button, bottomButt
 						<div className='content'></div>
 					</div>
 				)}{' '}
-				{button && bottomButton && <button className='content button textButton'>{typeof button == 'string' ? 'See recipe' : '+'}</button>}
+				{button && bottomButton && <button onClick={onClickFunction} className='content button textButton'>{typeof button == 'string' ? 'See recipe' : '+'}</button>}
 			</div>
 		</div>
 	)
