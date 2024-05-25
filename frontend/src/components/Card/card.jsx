@@ -1,7 +1,7 @@
 import './card.css'
-export default function Card({name, title, content, sortType, button, bottomButton, size, border, shadow}) {
+export default function Card({name, title, content, sortType, button, bottomButton, width, height, border, shadow}) {
 	return (
-		<div className='card main-card'>
+		<div className='card main-card' style={{width: width || '30%', height: height || '30vh'}}>
 			<div className='text'>{title ? <h2>{title}</h2> : <h3>{name}</h3>}</div>
 			{content && <p>{content}</p>}
 			<div className='card-c'>
